@@ -2,7 +2,7 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import AllPosts from "./components/AllPosts";
-import NewPostForm from "./components/NewPostForm";
+import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import NavBar from "./components/NavBar";
@@ -18,10 +18,10 @@ function App() {
       </div>
       <div id="routeDiv">
         <Routes>
-          <Route path="/" element={<AllPosts />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/newpostform" element={<NewPostForm />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/posts" element={<AllPosts />} />
           <Route path="/logout" element={<LogOut />} />
         </Routes>
       </div>
