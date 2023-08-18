@@ -9,8 +9,8 @@ export default async function fetchAllPosts() {
   try {
     const response = await fetch(`${API_URL}/posts`);
     const result = await response.json();
-    console.log(result.data);
-    return result.data;
+    console.log(result.data.posts);
+    return result.data.posts;
   } catch (error) {
     console.error(error);
   }
@@ -31,40 +31,48 @@ export default async function fetchAllPosts() {
 
 // POST
 
-// async function createPuppy(name, breed, image) {
-//   try {
-//     const response = await fetch(`${API_URL}/players`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         name,
-//         breed,
-//         image,
-//       }),
-//     });
-//     const result = await response.json();
-//     return result;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
+async function createPost(name, title, description, price) {
+  try {
+    const response = await fetch(`${API_URL}/posts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        title,
+        description,
+        price,
+      }),
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 // DELETE
 
-// async function deletePuppy(id) {
-//   try {
-//     const response = await fetch(`${API_URL}/players/${id}`, {
-//       method: "DELETE",
-//     });
-//     const result = await response.json();
-//     return result;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-// export { fetchSinglePuppy, createPuppy, deletePuppy };
+async function deletePost(id) {
+  try {
+    const response = await fetch(`${API_URL}/posts/${id}`, {
+      method: "DELETE",
+    });
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 // CRUD operations with tokens (authorization) - to do last
+
+// Login
+
+// Register
+
+// Logout
+
+//export functions
+export { fetchAllPosts, createPost, deletePost };

@@ -1,4 +1,4 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import AllPosts from "./components/AllPosts";
@@ -9,7 +9,7 @@ import NavBar from "./components/NavBar";
 import LogOut from "./components/LogOut";
 
 function App() {
-  // const [count, setCount] = useState(0);
+  const [token, setToken] = useState(null);
 
   return (
     <>
@@ -19,8 +19,14 @@ function App() {
       <div id="routeDiv">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route
+            path="/login"
+            element={<Login token={token} setToken={setToken} />}
+          />
+          <Route
+            path="/register"
+            element={<Register token={token} setToken={setToken} />}
+          />
           <Route path="/posts" element={<AllPosts />} />
           <Route path="/logout" element={<LogOut />} />
         </Routes>

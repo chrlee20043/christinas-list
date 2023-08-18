@@ -4,3 +4,64 @@
   padding: 2em;
 
 }
+
+#post-card {
+  background-color: lightblue;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  border-radius: 5px;
+  /* margin-bottom: 1rem;
+  margin-right: 1rem; */
+}
+
+/* .App {
+  text-align: center;
+  background-color:green;
+  }
+
+  .label{
+  display: block;
+  font-size: larger;
+  color: white;
+  padding: 5px;
+  }
+
+  .input{
+  font-size: larger;
+  padding: 5px;
+  margin: 2px;
+
+  }
+  .btn{
+  color: white;
+  background-color: red;
+  border-radius: 5px;
+  font-size: larger;
+  display: block;
+  padding: 5px;
+  margin: 10px auto;
+  }
+
+  .messages{
+  display: flex;
+  justify-content: center;
+  }
+
+  .error{
+  display: block;
+  background-color: red;
+  color: white;
+  width: fit-content;
+  height: 50px;
+  padding: 5px;
+  }
+
+  .success{
+  display: block;
+  background-color: lightblue;
+  color: black;
+  width: fit-content;
+  height: 50px;
+  padding: 5px;
+  } */
