@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import NewPostForm from "./NewPostForm";
 import SinglePost from "./SinglePost";
 import fetchAllPosts from "../API";
@@ -23,12 +24,10 @@ export default function AllPosts() {
   useEffect(() => {
     renderPosts();
   }, []);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const postsToDisplay = searchParam
-    ? posts.filter((post) =>
-        post.author.username.toLowerCase().includes(searchParam)
-      )
+    ? posts.filter((post) => post.title.toLowerCase().includes(searchParam))
     : posts;
   return (
     <div>
@@ -41,33 +40,15 @@ export default function AllPosts() {
             onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
           />
         </label>
+        <button className="link-btn" onClick={() => navigate("/newpost")}>
+          Create New Post
+        </button>
       </div>
-      <NewPostForm posts={posts} setPosts={setPosts} />
-      {error && <p>{error}</p>}
+      {/* <NewPostForm posts={posts} setPosts={setPosts} />
+      {error && <p>{error}</p>} */}
       {postsToDisplay.map((post) => {
         return <SinglePost key={post._id} post={post} />;
       })}
     </div>
   );
-
-  // return post.map(
-  //   (post) => {
-  //     return (
-  //       <div id="container" key={post._id}>
-  //         <div id="post-card">
-  //           <h2>{post.title}</h2>
-  //           <h4>Seller: {post.author.username}</h4>
-  //           <p>Description: {post.description}</p>
-  //           <p>Price: {post.price}</p>
-  //         </div>
-  //         {/* <button onClick={() => navigate(`/players/${puppy.id}`)}>
-  //         See Details
-  //       </button> */}
-  //       </div>
-  //     );
-  //   },
-  //   <div id="post-form">
-  //     <NewPostForm />
-  //   </div>
-  // );
 }

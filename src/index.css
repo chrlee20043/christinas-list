@@ -15,6 +15,23 @@
   margin-right: 1rem; */
 }
 
+#single-btn {
+  display: flex;
+  flex-direction: row;
+  width: 10%;
+  justify-content: center;
+
+}
+
+.post-form-container {
+  background-color: rgb(235, 105, 105);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+}
+
 /* .App {
   text-align: center;
   background-color:green;

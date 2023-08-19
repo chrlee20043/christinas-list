@@ -2,14 +2,18 @@
 
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { createPost } from "../API";
 
 export default function NewPostForm({ post, setPost }) {
-  const [name, setName] = useState("");
+  // const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [willDeliver, setWillDeliver] = useState(null);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -20,10 +24,10 @@ export default function NewPostForm({ post, setPost }) {
       const newPosts = [...post, response.data.newPost];
       setPost(newPosts);
 
-      setName("");
       setTitle("");
       setDescription("");
       setPrice("");
+      setWillDeliver(false);
     } else {
       setError(response.error.message);
     }
@@ -31,15 +35,10 @@ export default function NewPostForm({ post, setPost }) {
 
   //name, title, description, price
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="post-form-container">
       {error && <p>{error}</p>}
-      <input
-        value={name}
-        type="text"
-        name="name"
-        placeholder="Seller"
-        onChange={(event) => setName(event.target.value)}
-      />
+      <h4>Create New Post</h4>
+      <label htmlFor="title">Title</label>
       <input
         value={title}
         type="text"
@@ -47,6 +46,8 @@ export default function NewPostForm({ post, setPost }) {
         placeholder="Title"
         onChange={(event) => setTitle(event.target.value)}
       />
+
+      <label htmlFor="description">Description</label>
       <input
         value={description}
         type="text"
@@ -54,6 +55,8 @@ export default function NewPostForm({ post, setPost }) {
         placeholder="Description"
         onChange={(event) => setDescription(event.target.value)}
       />
+
+      <label htmlFor="price">Price</label>
       <input
         value={price}
         type="text"
@@ -61,7 +64,19 @@ export default function NewPostForm({ post, setPost }) {
         placeholder="Price"
         onChange={(event) => setPrice(event.target.value)}
       />
+
+      <label htmlFor="delivery">Are you willing to deliver?</label>
+      <input
+        value={willDeliver}
+        type="text"
+        name="Deliver"
+        onChange={(event) => setWillDeliver(event.target.value)}
+      />
+
       <button>Submit</button>
+      <div>
+        <button onClick={() => navigate("/posts")}>Return to All Posts</button>
+      </div>
     </form>
   );
 }

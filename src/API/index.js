@@ -18,20 +18,20 @@ export default async function fetchAllPosts() {
 
 // Single Post
 
-// async function fetchSinglePuppy(playerId) {
-//   try {
-//     const response = await fetch(`${API_URL}/players/${playerId}`);
-//     const result = await response.json();
-//     if (result.error) throw result.error;
-//     return result.data.player;
-//   } catch (err) {
-//     console.error(`Oh no, trouble fetching player #${playerId}!`, err);
-//   }
-// }
+async function fetchSinglePost(playerId) {
+  try {
+    const response = await fetch(`${API_URL}/players/${playerId}`);
+    const result = await response.json();
+    if (result.error) throw result.error;
+    return result.data.player;
+  } catch (err) {
+    console.error(`Oh no, trouble fetching player #${playerId}!`, err);
+  }
+}
 
 // POST
 
-async function createPost(name, title, description, price) {
+async function createPost(title, description, price, willDeliver) {
   try {
     const response = await fetch(`${API_URL}/posts`, {
       method: "POST",
@@ -39,10 +39,10 @@ async function createPost(name, title, description, price) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name,
         title,
         description,
         price,
+        willDeliver,
       }),
     });
     const result = await response.json();
@@ -66,13 +66,5 @@ async function deletePost(id) {
   }
 }
 
-// CRUD operations with tokens (authorization) - to do last
-
-// Login
-
-// Register
-
-// Logout
-
 //export functions
-export { fetchAllPosts, createPost, deletePost };
+export { fetchAllPosts, createPost, deletePost, fetchSinglePost };

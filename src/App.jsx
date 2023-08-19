@@ -7,6 +7,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import LogOut from "./components/LogOut";
+import NewPostForm from "./components/NewPostForm";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -28,6 +29,7 @@ function App() {
             element={<Register token={token} setToken={setToken} />}
           />
           <Route path="/posts" element={<AllPosts />} />
+          <Route path="/newpost" element={<NewPostForm />} />
           <Route path="/logout" element={<LogOut />} />
         </Routes>
       </div>

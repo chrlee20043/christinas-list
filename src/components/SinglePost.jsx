@@ -20,8 +20,12 @@ export default function SinglePost({ post, id }) {
         <h4>Seller: {post.author.username}</h4>
         <p>Description: {post.description}</p>
         <p>Price: {post.price}</p>
+        <button id="single-btn" onClick={handleDelete}>
+          Delete Post
+        </button>
+        <button id="single-btn">Edit</button>
+        <button id="single-btn">Message</button>
       </div>
-      <button onClick={handleDelete}>Delete Player</button>
     </div>
   );
 }

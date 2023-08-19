@@ -1,16 +1,18 @@
-import Register from "./Register";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Login component
 
 const COHORT_NAME = "2306-GHP-ET-WEB-FT-SF";
 const API_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
 
-export default function Login({ token, setToken }) {
+export default function Login(token) {
   const [successMessage, setSuccessMessage] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   async function handleSubmit() {
     try {
@@ -32,33 +34,37 @@ export default function Login({ token, setToken }) {
 
   return (
     <>
-      <div>
-        {successMessage && <p>{successMessage}</p>}
-        {error && <p>{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <label>
-            Username:{" "}
-            <input
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <br />
-          </label>
-          <label>
-            Password:{" "}
-            <input
-              type="password"
-              minLength="8"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <br />
-          </label>
-          <button type="submit">Submit</button>
+      <div className="auth-form-container">
+        <h2>Login</h2>
+        {successMessage && { successMessage }}
+        {error && { error }}
+        <form className="login-form" onSubmit={handleSubmit}>
+          <label className="label">Username</label>
+          <input
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            type="text"
+            placeholder="Username"
+            id="username"
+            name="username"
+          />
+          <label className="label">Password</label>
+          <input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            placeholder="********"
+            id="password"
+            name="password"
+          />
+          <button type="submit" onClick={() => navigate("/posts")}>
+            Log in
+          </button>
         </form>
+        <button className="link-btn" onClick={() => navigate("/register")}>
+          Don't have an account? Register here.
+        </button>
       </div>
     </>
   );
 }
-
-// <Register />
