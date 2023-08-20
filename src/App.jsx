@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, PrivateRoute } from "react-router-dom";
 import "./App.css";
 import AllPosts from "./components/AllPosts";
 import Home from "./components/Home";
@@ -30,7 +30,9 @@ function App() {
             path="/register"
             element={<Register token={token} setToken={setToken} />}
           />
-          <Route path="/profile" element={<Profile />} />
+          {/* Use PrivateRoute for the components that require authentication */}
+          <PrivateRoute path="/profile" element={<Profile />} />
+          {/* Add more PrivateRoute components for other private routes */}
           <Route
             path="/posts"
             element={<AllPosts token={token} setToken={setToken} />}

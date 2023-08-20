@@ -19,7 +19,8 @@ export default function Login({ token, setToken }) {
 
   const currentUser = useSelector((state) => state.authenticate.user);
 
-  async function handleLogin() {
+  async function handleLogin(event) {
+    event.preventDefault();
     try {
       const response = await fetch(`${API_URL}/users/login`, {
         method: "POST",
@@ -36,7 +37,8 @@ export default function Login({ token, setToken }) {
       const result = await response.json();
       console.log(result);
       if (result.success) {
-        alert("You have logged in!");
+        setSuccessMessage("You have logged in!");
+        setError("");
         dispatch(
           setCredentials({
             user: username,
@@ -44,12 +46,10 @@ export default function Login({ token, setToken }) {
             token: result.data.token,
           })
         );
-        response.json().then(() => {
-          navigate("/profile");
-        });
+        navigate("/profile");
       } else {
-        setError("Incorrect credentials");
-        alert("Please try again or register for an account");
+        setSuccessMessage("");
+        setError("Please try again or register for an account");
         console.log("need to register");
       }
     } catch (error) {
@@ -60,8 +60,11 @@ export default function Login({ token, setToken }) {
   return (
     <>
       <div className="auth-form-container">
-        {successMessage && <p>{successMessage}</p>}
-        {error && <p>{error}</p>}
+        {successMessage || error ? (
+          <p className={successMessage ? "success" : "error"}>
+            {successMessage || error}
+          </p>
+        ) : null}
         <form className="login-form" onSubmit={handleLogin}>
           <h2>Login</h2>
           <label className="label">Username</label>
@@ -86,7 +89,11 @@ export default function Login({ token, setToken }) {
           />
           <button type="submit">Log in</button>
         </form>
-        <button className="link-btn" onClick={() => navigate("/register")}>
+        <button
+          type="button"
+          className="link-btn"
+          onClick={() => navigate("/register")}
+        >
           Don't have an account? Register here.
         </button>
       </div>

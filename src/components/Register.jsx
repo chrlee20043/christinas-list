@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../Redux/authSlice";
 
-export default function Register(setToken) {
+export default function Register({ setToken }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,9 +44,8 @@ export default function Register(setToken) {
           setSuccessMessage(
             "You have signed up! Please log into your account!"
           );
-          response.then(() => {
-            navigate("/login");
-          });
+
+          navigate("/login");
         } else {
           setError("Please provide a username.");
         }
@@ -58,7 +57,11 @@ export default function Register(setToken) {
 
   return (
     <div className="register-form-container">
-      <div>{successMessage && <p>{successMessage}</p>}</div>
+      {successMessage || error ? (
+        <p className={successMessage ? "success" : "error"}>
+          {successMessage || error}
+        </p>
+      ) : null}
       <form className="register-form" onSubmit={handleSubmit}>
         {/* Labels and inputs for form data */}
         <h1>Register</h1>

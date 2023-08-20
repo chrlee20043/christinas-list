@@ -16,6 +16,24 @@ export default async function fetchAllPosts() {
   }
 }
 
+// Retrieve my posts
+
+async function myData({ token }) {
+  try {
+    const response = await fetch(`${API_URL}/users/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 // Single Post
 
 // async function fetchSinglePost(id) {
@@ -66,31 +84,66 @@ async function deletePost(id) {
   }
 }
 
-// async function editPost(id, title, description, price, location, willDeliver) {
-//   try {
-//     const response = await fetch(`${API_URL}/#PATCH-/posts/${id}`, {
-//       method: "PATCH",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${token}`,
-//       },
-//       body: JSON.stringify({
-//         post: {
-//           title,
-//           description,
-//           price,
-//           location,
-//           willDeliver,
-//         },
-//       }),
-//     });
-//     const result = await response.json();
-//     console.log(result);
-//     return result;
-//   } catch (err) {
-//     console.error(err);
-//   }
-// }
+// Edit posts
+
+async function editPost(
+  id,
+  title,
+  description,
+  price,
+  location,
+  willDeliver,
+  { token }
+) {
+  try {
+    const response = await fetch(`${API_URL}/#PATCH-/posts/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        post: {
+          title,
+          description,
+          price,
+          location,
+          willDeliver,
+        },
+      }),
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+const postMessage = async ({ token }) => {
+  try {
+    const response = await fetch(
+      `${API_URL}/posts/5e8929ddd439160017553e06/messages`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          message: {
+            content: "Do you still have this?  Would you take $10 less?",
+          },
+        }),
+      }
+    );
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 //export functions
-export { fetchAllPosts, createPost, deletePost };
+export { fetchAllPosts, createPost, myData, deletePost, editPost, postMessage };
