@@ -32,11 +32,17 @@
   margin-top: 1em;
 }
 
-.auth-form-container {
+.login-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 1em;
+background-color: rgb(169, 239, 239);
+}
+
+.login-form input {
+  margin: 1em;
 }
 
 .register-form {
@@ -44,6 +50,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color:rgb(207, 174, 237);
+}
+
+.link-btn {
+  margin-top: 1em;
 }
 
 /* .App {

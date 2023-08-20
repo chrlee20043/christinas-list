@@ -60,10 +60,10 @@ export default function Login({ token, setToken }) {
   return (
     <>
       <div className="auth-form-container">
-        <h2>Login</h2>
         {successMessage && <p>{successMessage}</p>}
         {error && <p>{error}</p>}
         <form className="login-form" onSubmit={handleLogin}>
+          <h2>Login</h2>
           <label className="label">Username</label>
           <input
             value={username}

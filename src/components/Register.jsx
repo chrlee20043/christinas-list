@@ -58,12 +58,11 @@ export default function Register(setToken) {
 
   return (
     <div className="register-form-container">
-      <div>
-        <h1>Register</h1>
-        {successMessage && <p>{successMessage}</p>}
-      </div>
+      <div>{successMessage && <p>{successMessage}</p>}</div>
       <form className="register-form" onSubmit={handleSubmit}>
         {/* Labels and inputs for form data */}
+        <h1>Register</h1>
+
         <label className="label">Email</label>
         <input
           type="email"
