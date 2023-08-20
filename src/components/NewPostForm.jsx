@@ -82,7 +82,7 @@ export default function NewPostForm({ post, setPost }) {
       <label htmlFor="delivery">Are you willing to deliver?</label>
       <input
         value={willDeliver}
-        type="text"
+        type="checkbox"
         name="Deliver"
         onChange={(event) => setWillDeliver(event.target.value)}
       />

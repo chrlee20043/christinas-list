@@ -47,7 +47,7 @@ async function myData({ token }) {
 //   }
 // }
 
-// POST
+// Submit a new post
 
 async function createPost(title, description, price, willDeliver) {
   try {

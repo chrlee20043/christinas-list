@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Profile from "./Profile";
 
 const PrivateRoute = ({ path, element }) => {
   const currentUser = useSelector((state) => state.authenticate.user);

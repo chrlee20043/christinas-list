@@ -7,6 +7,7 @@ export default function NavBar() {
       <h1 id="navbar-title">Stranger's Things</h1>
       <Link to="/">Home</Link>
       <Link to="/login">Log In</Link>
+
       {/* <Link to="/register">Register</Link> */}
       <Link to="/profile">Profile</Link>
       <Link to="/posts">Posts</Link>

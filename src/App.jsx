@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Routes, Route, PrivateRoute } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import PrivateRoute from "./components/PrivateRoute";
 import "./App.css";
 import AllPosts from "./components/AllPosts";
 import Home from "./components/Home";
@@ -14,11 +16,14 @@ function App() {
   const [token, setToken] = useState(null);
   const [posts, setPosts] = useState("");
 
+  const currentUser = useSelector((state) => state.authenticate.user);
+
   return (
     <>
       <div>
         <NavBar />
       </div>
+
       <div id="routeDiv">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -31,7 +36,7 @@ function App() {
             element={<Register token={token} setToken={setToken} />}
           />
           {/* Use PrivateRoute for the components that require authentication */}
-          <PrivateRoute path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} />
           {/* Add more PrivateRoute components for other private routes */}
           <Route
             path="/posts"
@@ -50,7 +55,11 @@ function App() {
           />
           <Route
             path="/newpost"
-            element={<NewPostForm token={token} setToken={setToken} />}
+            element={
+              <PrivateRoute>
+                <NewPostForm token={token} setToken={setToken} />
+              </PrivateRoute>
+            }
           />
         </Routes>
       </div>
@@ -59,3 +68,9 @@ function App() {
 }
 
 export default App;
+
+{
+  /* <PrivateRoute>
+<Dashboard />
+</PrivateRoute> */
+}
