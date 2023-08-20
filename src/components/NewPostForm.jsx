@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { createPost } from "../API";
 
 export default function NewPostForm({ post, setPost }) {
-  // const [name, setName] = useState("");
+  const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -17,7 +17,13 @@ export default function NewPostForm({ post, setPost }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const response = await createPost(name, title, description, price);
+    const response = await createPost(
+      name,
+      title,
+      description,
+      price,
+      willDeliver
+    );
     if (response.success) {
       console.log("New Post: ", response.data.newPost);
 
@@ -38,6 +44,14 @@ export default function NewPostForm({ post, setPost }) {
     <form onSubmit={handleSubmit} className="post-form-container">
       {error && <p>{error}</p>}
       <h4>Create New Post</h4>
+      <label htmlFor="name">Seller Name</label>
+      <input
+        value={name}
+        type="text"
+        name="name"
+        placeholder="Name"
+        onChange={(event) => setName(event.target.value)}
+      />
       <label htmlFor="title">Title</label>
       <input
         value={title}

@@ -7,7 +7,7 @@ import fetchAllPosts from "../API";
 
 // User will see all posts
 // include search bar, navigate to form
-export default function AllPosts() {
+export default function AllPosts({ token }) {
   const [posts, setPosts] = useState([]);
   const [searchParam, setSearchParam] = useState("");
   const [error, setError] = useState(null);
@@ -44,10 +44,8 @@ export default function AllPosts() {
           Create New Post
         </button>
       </div>
-      {/* <NewPostForm posts={posts} setPosts={setPosts} />
-      {error && <p>{error}</p>} */}
       {postsToDisplay.map((post) => {
-        return <SinglePost key={post._id} post={post} />;
+        return <SinglePost key={post.id} post={post} token={token} />;
       })}
     </div>
   );

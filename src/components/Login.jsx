@@ -1,34 +1,59 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setCredentials } from "../Redux/authSlice";
 
 // Login component
 
 const COHORT_NAME = "2306-GHP-ET-WEB-FT-SF";
 const API_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
 
-export default function Login(token) {
-  const [successMessage, setSuccessMessage] = useState(null);
+export default function Login({ token, setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [successMessage, setSuccessMessage] = useState(null);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  async function handleSubmit() {
+  const currentUser = useSelector((state) => state.authenticate.user);
+
+  async function handleLogin() {
     try {
       const response = await fetch(`${API_URL}/users/login`, {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify({
+          user: {
+            username: `${username}`,
+            password: `${password}`,
+          },
+        }),
       });
       const result = await response.json();
-      setSuccessMessage(result.message);
-      // setUserData(result.data.username);
-      // console.log(result.data.username);
+      console.log(result);
+      if (result.success) {
+        alert("You have logged in!");
+        dispatch(
+          setCredentials({
+            user: username,
+            password: password,
+            token: result.data.token,
+          })
+        );
+        response.json().then(() => {
+          navigate("/profile");
+        });
+      } else {
+        setError("Incorrect credentials");
+        alert("Please try again or register for an account");
+        console.log("need to register");
+      }
     } catch (error) {
-      setError(error.message);
+      console.error(error);
     }
   }
 
@@ -36,9 +61,9 @@ export default function Login(token) {
     <>
       <div className="auth-form-container">
         <h2>Login</h2>
-        {successMessage && { successMessage }}
-        {error && { error }}
-        <form className="login-form" onSubmit={handleSubmit}>
+        {successMessage && <p>{successMessage}</p>}
+        {error && <p>{error}</p>}
+        <form className="login-form" onSubmit={handleLogin}>
           <label className="label">Username</label>
           <input
             value={username}
@@ -47,6 +72,7 @@ export default function Login(token) {
             placeholder="Username"
             id="username"
             name="username"
+            required
           />
           <label className="label">Password</label>
           <input
@@ -56,10 +82,9 @@ export default function Login(token) {
             placeholder="********"
             id="password"
             name="password"
+            required
           />
-          <button type="submit" onClick={() => navigate("/posts")}>
-            Log in
-          </button>
+          <button type="submit">Log in</button>
         </form>
         <button className="link-btn" onClick={() => navigate("/register")}>
           Don't have an account? Register here.
