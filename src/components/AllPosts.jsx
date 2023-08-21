@@ -11,6 +11,7 @@ export default function AllPosts({ token }) {
   const [posts, setPosts] = useState([]);
   const [searchParam, setSearchParam] = useState("");
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   async function renderPosts() {
     try {
@@ -24,7 +25,6 @@ export default function AllPosts({ token }) {
   useEffect(() => {
     renderPosts();
   }, []);
-  const navigate = useNavigate();
 
   const postsToDisplay = searchParam
     ? posts.filter((post) => post.title.toLowerCase().includes(searchParam))
@@ -42,16 +42,7 @@ export default function AllPosts({ token }) {
         </label>
       </div>
       {postsToDisplay.map((post) => (
-        <div key={post._id} id="post-card">
-          <h3>{post.title}</h3>
-          <p>{post.description}</p>
-          <button
-            id="single-btn"
-            onClick={() => navigate(`/posts/${post._id}`)}
-          >
-            See Details
-          </button>
-        </div>
+        <SinglePost key={post._id} post={post} id={post._id} token={token} />
       ))}
     </div>
   );

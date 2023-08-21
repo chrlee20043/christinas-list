@@ -95,7 +95,9 @@ export default function Register({ setToken }) {
           placeholder="********"
           required
         />
-        <button type="submit">Register</button>
+        <button type="submit" className="register-btn">
+          Register
+        </button>
       </form>
 
       <button className="link-btn" onClick={() => navigate("/login")}>
