@@ -12,7 +12,7 @@ export default async function fetchAllPosts() {
     console.log(result.data.posts);
     return result.data.posts;
   } catch (error) {
-    console.error(`Cannot get posts`, error);
+    console.error("Cannot get posts", error);
   }
 }
 
@@ -36,7 +36,9 @@ async function myData({ token }) {
 
 // Submit a new post
 
-async function createPost({ token }, title, description, price, willDeliver) {
+async function createPost(title, description, price, willDeliver) {
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUyODY4ZDJjMjc1MDAwMTQ4YzU0NDgiLCJ1c2VybmFtZSI6ImNvZGluZ2dhbDkzIiwiaWF0IjoxNjkyNjM3MDI3fQ.5gN01cqOAgsY-ndmo6R9HjlBrFbQHShDXtnKnx2wuxI";
   try {
     const response = await fetch(`${API_URL}/posts`, {
       method: "POST",
@@ -45,15 +47,17 @@ async function createPost({ token }, title, description, price, willDeliver) {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        title,
-        description,
-        price,
-        willDeliver,
+        post: {
+          title,
+          description,
+          price,
+          willDeliver,
+        },
       }),
     });
-    console.log(response);
+    // console.log(response)
     const result = await response.json();
-    console.log(result);
+    // console.log(result);
     return result;
   } catch (error) {
     console.error(`You cannot create me`, error);

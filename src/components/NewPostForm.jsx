@@ -11,7 +11,7 @@ export default function NewPostForm({ post, setPost }) {
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState("");
   const [location, setLocation] = useState("");
   const [willDeliver, setWillDeliver] = useState(false);
   const [error, setError] = useState(null);
@@ -24,24 +24,18 @@ export default function NewPostForm({ post, setPost }) {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (!authToken) {
-      // Redirect to login or show an error message
-      navigate("/login");
-      return;
-    }
+    // if (!authToken) {
+    //   // Redirect to login or show an error message
+    //   navigate("/login");
+    //   return;
+    // }
 
-    const response = await createPost(
-      { token: authToken },
-      title,
-      description,
-      price,
-      location,
-      willDeliver
-    );
+    const response = await createPost(title, description, price, willDeliver);
+    // console.log(authToken);
     if (response.success) {
-      console.log("New Post: ", response.data.newPost);
+      console.log("New Post: ", response.data.post);
 
-      const newPosts = [...post, response.data.newPost];
+      const newPosts = [...post, response.data.post];
       setPost(newPosts);
 
       setTitle("");

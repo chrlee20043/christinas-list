@@ -8,7 +8,7 @@ const authSlice = createSlice({
       const { user, token } = action.payload;
       state.user = user;
       state.token = token;
-      console.log(`payload: ${JSON.stringify(action.payload)}`);
+      // console.log(`payload: ${JSON.stringify(action.payload)}`);
     },
     logOut: (state) => {
       state.user = null;
