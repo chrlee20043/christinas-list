@@ -86,9 +86,15 @@ async function deletePost(id, token) {
 
 // Edit posts
 
-async function editPost(id, title, description, price, location, willDeliver) {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUyODY4ZDJjMjc1MDAwMTQ4YzU0NDgiLCJ1c2VybmFtZSI6ImNvZGluZ2dhbDkzIiwiaWF0IjoxNjkyNjQyNzc3fQ.qVwIiXjzmsjusOsRzGNSMX9kBJK8R1SJPeM5NGELQ34";
+async function editPost(
+  id,
+  title,
+  description,
+  price,
+  location,
+  willDeliver,
+  token
+) {
   try {
     const response = await fetch(`${API_URL}/#PATCH-/posts/${id}`, {
       method: "PATCH",

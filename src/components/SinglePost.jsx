@@ -1,30 +1,26 @@
 import { deletePost, editPost } from "../API";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 
-export default function SinglePost({ post, posts, setPosts, token }) {
+export default function SinglePost({ post }) {
   const authToken = useSelector(selectCurrentToken);
-  console.log(authToken);
-  // const user = useSelector(selectCurrentUser);
+  // console.log(authToken);
+  const user = useSelector(selectCurrentUser);
+  const { id } = useParams();
 
   const navigate = useNavigate();
 
   async function handleDelete() {
     try {
-      const result = await deletePost(authToken, post._id);
+      const result = await deletePost(authToken, id);
       console.log(result);
-      const updatedPosts = posts.filter(
-        (selectedPost) => selectedPost._id !== post._id
-      );
-      setPosts(updatedPosts);
+
       navigate("/posts");
     } catch (error) {
       console.error(error);
     }
   }
-
-  // const isAuthor = user && post.author._id === user._id;
 
   return (
     <div id="container" key={post._id}>

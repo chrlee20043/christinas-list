@@ -13,7 +13,7 @@ export default function NewPostForm({ post, setPost }) {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [location, setLocation] = useState("");
-  const [willDeliver, setWillDeliver] = useState(false);
+  const [willDeliver, setWillDeliver] = useState(null);
   const [error, setError] = useState(null);
 
   const authToken = useSelector(selectCurrentToken);
@@ -36,15 +36,10 @@ export default function NewPostForm({ post, setPost }) {
     console.log(response.data.post);
     if (response.success) {
       console.log("New Post: ", response.data.post);
+      navigate("/posts");
 
       // const newPosts = [...post, response.data.post];
       // setPost(newPosts);
-
-      // setTitle("");
-      // setDescription("");
-      // setPrice("");
-      // setLocation("");
-      // setWillDeliver(false);
     } else {
       setError("Unauthorized token. Please register or log in");
     }
@@ -119,10 +114,7 @@ export default function NewPostForm({ post, setPost }) {
           onChange={(event) => setWillDeliver(event.target.value)}
         />
       </fieldset>
-      <button>Submit</button>
-      <div>
-        <button onClick={() => navigate("/posts")}>Return to All Posts</button>
-      </div>
+      <button type="submit">Submit</button>
     </form>
   );
 }

@@ -14,7 +14,7 @@ import EditPost from "./components/EditPost";
 
 function App() {
   const [token, setToken] = useState(null);
-  const [posts, setPosts] = useState(null);
+  const [post, setPost] = useState(null);
 
   // const handleLogout = () => {
   //   setToken(null);
@@ -45,19 +45,14 @@ function App() {
             element={<AllPosts token={token} setToken={setToken} />}
           />
           <Route
-            path="/posts/:postId"
-            element={
-              <SinglePost token={token} posts={posts} setPosts={setPosts} />
-            }
+            path="/posts/:id"
+            element={<SinglePost token={token} post={post} setPost={setPost} />}
           />
           <Route
             path="/newpost"
             element={<NewPostForm token={token} setToken={setToken} />}
           />
-          <Route
-            path="posts/:postId/edit"
-            element={<EditPost token={token} />}
-          />
+          <Route path="posts/:id/edit" element={<EditPost token={token} />} />
         </Routes>
       </div>
     </>
