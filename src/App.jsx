@@ -10,10 +10,11 @@ import NavBar from "./components/NavBar";
 import NewPostForm from "./components/NewPostForm";
 import SinglePost from "./components/SinglePost";
 import Profile from "./components/Profile";
+import EditPost from "./components/EditPost";
 
 function App() {
   const [token, setToken] = useState(null);
-  const [post, setPost] = useState(null);
+  const [posts, setPosts] = useState(null);
 
   // const handleLogout = () => {
   //   setToken(null);
@@ -45,7 +46,9 @@ function App() {
           />
           <Route
             path="/posts/:postId"
-            element={<SinglePost token={token} post={post} />}
+            element={
+              <SinglePost token={token} posts={posts} setPosts={setPosts} />
+            }
           />
           <Route
             path="/newpost"

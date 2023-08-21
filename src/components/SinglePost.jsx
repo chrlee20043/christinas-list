@@ -3,33 +3,28 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 
-export default function SinglePost({ post, id }) {
+export default function SinglePost({ post, posts, setPosts, token }) {
   const authToken = useSelector(selectCurrentToken);
-  // console.log(authToken);
-  const user = useSelector(selectCurrentUser);
+  console.log(authToken);
+  // const user = useSelector(selectCurrentUser);
 
   const navigate = useNavigate();
 
   async function handleDelete() {
     try {
-      const result = await deletePost(id);
+      const result = await deletePost(authToken, post._id);
       console.log(result);
+      const updatedPosts = posts.filter(
+        (selectedPost) => selectedPost._id !== post._id
+      );
+      setPosts(updatedPosts);
       navigate("/posts");
     } catch (error) {
       console.error(error);
     }
   }
 
-  async function handleEdit() {
-    try {
-      const result = await editPost(authToken, id);
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  const isAuthor = user && post.author._id === user._id;
+  // const isAuthor = user && post.author._id === user._id;
 
   return (
     <div id="container" key={post._id}>
@@ -44,7 +39,7 @@ export default function SinglePost({ post, id }) {
           Delete Post
         </button>
 
-        <button id="single-btn" onClick={handleEdit}>
+        <button id="single-btn" onClick={() => navigate(`posts/${id}/edit`)}>
           Edit Post
         </button>
       </div>

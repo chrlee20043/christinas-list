@@ -17,6 +17,7 @@ export default function NewPostForm({ post, setPost }) {
   const [error, setError] = useState(null);
 
   const authToken = useSelector(selectCurrentToken);
+  // console.log(authToken);
   const user = useSelector(selectCurrentUser);
 
   const navigate = useNavigate();
@@ -24,25 +25,26 @@ export default function NewPostForm({ post, setPost }) {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // if (!authToken) {
-    //   // Redirect to login or show an error message
-    //   navigate("/login");
-    //   return;
-    // }
+    const response = await createPost(
+      title,
+      description,
+      price,
+      willDeliver,
+      authToken
+    );
 
-    const response = await createPost(title, description, price, willDeliver);
-    // console.log(authToken);
+    console.log(response.data.post);
     if (response.success) {
       console.log("New Post: ", response.data.post);
 
-      const newPosts = [...post, response.data.post];
-      setPost(newPosts);
+      // const newPosts = [...post, response.data.post];
+      // setPost(newPosts);
 
-      setTitle("");
-      setDescription("");
-      setPrice("");
-      setLocation("");
-      setWillDeliver(false);
+      // setTitle("");
+      // setDescription("");
+      // setPrice("");
+      // setLocation("");
+      // setWillDeliver(false);
     } else {
       setError("Unauthorized token. Please register or log in");
     }

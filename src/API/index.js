@@ -38,9 +38,7 @@ async function myData() {
 
 // Submit a new post
 
-async function createPost(title, description, price, willDeliver) {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUyODY4ZDJjMjc1MDAwMTQ4YzU0NDgiLCJ1c2VybmFtZSI6ImNvZGluZ2dhbDkzIiwiaWF0IjoxNjkyNjM3MDI3fQ.5gN01cqOAgsY-ndmo6R9HjlBrFbQHShDXtnKnx2wuxI";
+async function createPost(title, description, price, willDeliver, token) {
   try {
     const response = await fetch(`${API_URL}/posts`, {
       method: "POST",
@@ -68,9 +66,7 @@ async function createPost(title, description, price, willDeliver) {
 
 // DELETE
 
-async function deletePost(id) {
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUyODY4ZDJjMjc1MDAwMTQ4YzU0NDgiLCJ1c2VybmFtZSI6ImNvZGluZ2dhbDkzIiwiaWF0IjoxNjkyNjM3MDI3fQ.5gN01cqOAgsY-ndmo6R9HjlBrFbQHShDXtnKnx2wuxI";
+async function deletePost(id, token) {
   try {
     const response = await fetch(`${API_URL}/posts/${id}`, {
       method: "DELETE",
