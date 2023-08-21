@@ -1,14 +1,31 @@
+* {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 body {
   background-color: #8EC5FC;
 background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
 
 }
 
+#navbar-title {
+  font-family: Georgia, 'Times New Roman', Times, serif
+
+  /* line-height: 80px; */
+}
+
 #navbar {
   display: flex;
   justify-content: space-evenly;
-  padding: 2em;
 
+}
+
+#navbar a {
+  display: flex;
+  justify-content:right;
+  float: right;
+  margin-right: 20px;
+  line-height: 80px;
 }
 
 #post-card {

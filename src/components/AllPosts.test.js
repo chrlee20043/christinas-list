@@ -16,8 +16,8 @@ import AllPosts from "./AllPosts";
 describe("rendering", () => {
   test("renders the AllPosts component", () => {
     render(<AllPosts />);
-    expect(screen.getByText("Show All Posts")).toBeInTheDocument();
-    expect(screen.getByText(/show all posts/i)).toBeInTheDocument(); //testing the same as above, just with regex instead of string matching
+    expect(screen.getByText("Search:")).toBeInTheDocument();
+    expect(screen.getByText(/search/i)).toBeInTheDocument(); //testing the same as above, just with regex instead of string matching
   });
   // Test: renders the Button component with correct props
   //   test("the button renders", () => {

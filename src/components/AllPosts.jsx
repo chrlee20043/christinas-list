@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 // import NewPostForm from "./NewPostForm";
 import SinglePost from "./SinglePost";
 import fetchAllPosts from "../API";
@@ -11,7 +11,7 @@ export default function AllPosts({ token }) {
   const [posts, setPosts] = useState([]);
   const [searchParam, setSearchParam] = useState("");
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   async function renderPosts() {
     try {
