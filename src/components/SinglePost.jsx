@@ -30,7 +30,7 @@ export default function SinglePost({ post, id, currentUser }) {
         )}
         {isAuthor && (
           <button id="single-btn" onClick={editPost}>
-            Delete Post
+            Edit Post
           </button>
         )}
       </div>

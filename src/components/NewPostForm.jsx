@@ -54,16 +54,6 @@ export default function NewPostForm({ post, setPost }) {
     }
   }
 
-  useEffect(() => {
-    // Clear form fields when the component mounts or when post changes
-    setName("");
-    setTitle("");
-    setDescription("");
-    setPrice("");
-    setLocation("");
-    setWillDeliver(false);
-  }, [post]);
-
   //name, title, description, price
   return (
     <form onSubmit={handleSubmit} className="post-form-container">

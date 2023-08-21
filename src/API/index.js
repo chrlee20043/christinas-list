@@ -37,8 +37,6 @@ async function myData({ token }) {
 // Submit a new post
 
 async function createPost({ token }, title, description, price, willDeliver) {
-  // token =
-  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUyODY4ZDJjMjc1MDAwMTQ4YzU0NDgiLCJ1c2VybmFtZSI6ImNvZGluZ2dhbDkzIiwiaWF0IjoxNjkyNTg4ODIxfQ.P5NdzRqU5Z0okZSXTANjR_51oBSpxjDkladdOf5qRHc";
   try {
     const response = await fetch(`${API_URL}/posts`, {
       method: "POST",

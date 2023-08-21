@@ -17,8 +17,8 @@ export default function Profile() {
       if (authToken) {
         try {
           const response = await myData(authToken);
-          setUserPosts(response.posts);
-          setUserMessages(response.messages);
+          setUserPosts(response.posts || []);
+          setUserMessages(response.messages || []);
         } catch (error) {
           console.error(error);
         }
@@ -27,8 +27,6 @@ export default function Profile() {
 
     fetchUserData();
   }, [authToken]);
-
-  const welcome = authToken ? `Welcome ${user}` : "Welcome!";
 
   const handlePostMessage = async () => {
     try {
@@ -41,15 +39,18 @@ export default function Profile() {
 
   return (
     <section className="welcome">
-      <h1>{welcome}</h1>
+      {authToken && <h1>Welcome {user}!</h1>}
       <p>Browse our collection!</p>
       <p>
         <button onClick={() => navigate("/posts")}>See All Posts</button>
       </p>
       <br />
+      <p>
+        <button onClick={() => navigate("/newpost")}>Submit New Post</button>
+      </p>
 
       <h2>My Posts:</h2>
-      {userPosts.length === 0 ? (
+      {userPosts ? (
         <p>No posts available.</p>
       ) : (
         userPosts.map((post) => (
@@ -63,7 +64,7 @@ export default function Profile() {
         ))
       )}
       <h2>My Messages:</h2>
-      {userMessages.length === 0 ? (
+      {userMessages ? (
         <p>You have no messages</p>
       ) : (
         userMessages.map((message) => (
