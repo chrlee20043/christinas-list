@@ -1,18 +1,21 @@
-import React from "react";
-import { Route, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const PrivateRoute = ({ path, element }) => {
+const PrivateRoute = ({ children }) => {
   const currentUser = useSelector((state) => state.authenticate.user);
   const navigate = useNavigate();
 
-  if (!currentUser) {
-    // Redirect to the login page if the user is not authenticated
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (!currentUser) {
+      // Redirect to the login page if the user is not authenticated
+      return navigate("/login");
+    }
+  }, [currentUser, navigate]);
 
   // Render the private route if the user is authenticated
-  <Route path={path} element={element} />;
+
+  return children;
 };
 
 export default PrivateRoute;

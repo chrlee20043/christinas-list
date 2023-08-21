@@ -1,17 +1,19 @@
 // Nav bar with links to various routes
 import { Link } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBar({ token }) {
   return (
     <div id="navbar">
-      <h1 id="navbar-title">Stranger's Things</h1>
+      <h1 id="navbar-title">Christina's Closet</h1>
       <Link to="/">Home</Link>
-      <Link to="/login">Log In</Link>
-
-      {/* <Link to="/register">Register</Link> */}
       <Link to="/profile">Profile</Link>
       <Link to="/posts">Posts</Link>
-      <Link to="/logout">Log Out</Link>
+      {/* <Link to="/logout">Log Out</Link> */}
+      {/* {token && (
+        <button type="button" onClick={onLogout}>
+          Log Out
+        </button> */}
+      {/* )} */}
     </div>
   );
 }

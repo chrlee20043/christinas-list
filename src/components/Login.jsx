@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../Redux/authSlice";
+// import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 
 // Login component
 
@@ -16,8 +17,6 @@ export default function Login({ token, setToken }) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const currentUser = useSelector((state) => state.authenticate.user);
 
   async function handleLogin(event) {
     event.preventDefault();
@@ -37,15 +36,14 @@ export default function Login({ token, setToken }) {
       const result = await response.json();
       console.log(result);
       if (result.success) {
-        setSuccessMessage("You have logged in!");
-        setError("");
         dispatch(
           setCredentials({
             user: username,
-            password: password,
             token: result.data.token,
           })
         );
+        setSuccessMessage("You have logged in!");
+        setError("");
         navigate("/profile");
       } else {
         setSuccessMessage("");

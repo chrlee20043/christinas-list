@@ -1,12 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import NewPostForm from "./NewPostForm";
+// import NewPostForm from "./NewPostForm";
 import SinglePost from "./SinglePost";
 import fetchAllPosts from "../API";
 
-// User will see all posts
-// include search bar, navigate to form
+// User will see all posts and be able to click on one to see more details
+// include search bar
 export default function AllPosts({ token }) {
   const [posts, setPosts] = useState([]);
   const [searchParam, setSearchParam] = useState("");
@@ -16,8 +16,8 @@ export default function AllPosts({ token }) {
     try {
       const postArray = await fetchAllPosts();
       setPosts(postArray);
-    } catch {
-      setError(error);
+    } catch (error) {
+      setError("No posts to see here");
     }
   }
 
@@ -31,7 +31,7 @@ export default function AllPosts({ token }) {
     : posts;
   return (
     <div>
-      <div>
+      <div id="search-bar">
         <label>
           Search:{" "}
           <input
@@ -40,13 +40,19 @@ export default function AllPosts({ token }) {
             onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
           />
         </label>
-        <button className="link-btn" onClick={() => navigate("/newpost")}>
-          Create New Post
-        </button>
       </div>
-      {postsToDisplay.map((post) => {
-        return <SinglePost key={post.id} post={post} token={token} />;
-      })}
+      {postsToDisplay.map((post) => (
+        <div key={post._id} id="post-card">
+          <h3>{post.title}</h3>
+          <p>{post.description}</p>
+          <button
+            id="single-btn"
+            onClick={() => navigate(`/posts/${post._id}`)}
+          >
+            See Details
+          </button>
+        </div>
+      ))}
     </div>
   );
 }

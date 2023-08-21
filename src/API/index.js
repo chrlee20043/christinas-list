@@ -34,27 +34,17 @@ async function myData({ token }) {
   }
 }
 
-// Single Post
-
-// async function fetchSinglePost(id) {
-//   try {
-//     const response = await fetch(`${API_URL}/players/${id}`);
-//     const result = await response.json();
-//     if (result.error) throw result.error;
-//     return result.data.player;
-//   } catch (err) {
-//     console.error(`Oh no, looks like we ran into an issue`, err);
-//   }
-// }
-
 // Submit a new post
 
-async function createPost(title, description, price, willDeliver) {
+async function createPost({ token }, title, description, price, willDeliver) {
+  // token =
+  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUyODY4ZDJjMjc1MDAwMTQ4YzU0NDgiLCJ1c2VybmFtZSI6ImNvZGluZ2dhbDkzIiwiaWF0IjoxNjkyNTg4ODIxfQ.P5NdzRqU5Z0okZSXTANjR_51oBSpxjDkladdOf5qRHc";
   try {
     const response = await fetch(`${API_URL}/posts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         title,
@@ -63,7 +53,9 @@ async function createPost(title, description, price, willDeliver) {
         willDeliver,
       }),
     });
+    console.log(response);
     const result = await response.json();
+    console.log(result);
     return result;
   } catch (error) {
     console.error(`You cannot create me`, error);
@@ -72,12 +64,18 @@ async function createPost(title, description, price, willDeliver) {
 
 // DELETE
 
-async function deletePost(id) {
+async function deletePost({ token }, id) {
   try {
-    const response = await fetch(`${API_URL}#DELETE-/posts/${id}`, {
+    const response = await fetch(`${API_URL}/posts/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
+    console.log(response);
     const result = await response.json();
+    console.log(result);
     return result;
   } catch (error) {
     console.error(`You cannot delete me`, error);
@@ -120,23 +118,20 @@ async function editPost(
   }
 }
 
-const postMessage = async ({ token }) => {
+const postMessage = async ({ token }, id) => {
   try {
-    const response = await fetch(
-      `${API_URL}/posts/5e8929ddd439160017553e06/messages`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+    const response = await fetch(`${API_URL}/posts/${id}/messages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        message: {
+          content: "Do you still have this?  Would you take $10 less?",
         },
-        body: JSON.stringify({
-          message: {
-            content: "Do you still have this?  Would you take $10 less?",
-          },
-        }),
-      }
-    );
+      }),
+    });
     const result = await response.json();
     console.log(result);
     return result;
