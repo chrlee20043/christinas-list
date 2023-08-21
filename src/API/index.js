@@ -66,7 +66,9 @@ async function createPost(title, description, price, willDeliver) {
 
 // DELETE
 
-async function deletePost({ token }, id) {
+async function deletePost(id) {
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUyODY4ZDJjMjc1MDAwMTQ4YzU0NDgiLCJ1c2VybmFtZSI6ImNvZGluZ2dhbDkzIiwiaWF0IjoxNjkyNjM3MDI3fQ.5gN01cqOAgsY-ndmo6R9HjlBrFbQHShDXtnKnx2wuxI";
   try {
     const response = await fetch(`${API_URL}/posts/${id}`, {
       method: "DELETE",

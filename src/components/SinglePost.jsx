@@ -1,7 +1,12 @@
 import { deletePost, editPost } from "../API";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 
-export default function SinglePost({ post, id, currentUser }) {
+export default function SinglePost({ post }) {
+  const authToken = useSelector(selectCurrentToken);
+  const user = useSelector(selectCurrentUser);
+
   const navigate = useNavigate();
 
   async function handleDelete() {
@@ -14,22 +19,32 @@ export default function SinglePost({ post, id, currentUser }) {
     }
   }
 
-  const isAuthor = currentUser && post.author._id === currentUser._id;
+  async function handleEdit() {
+    try {
+      const result = await editPost(authToken);
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const isAuthor = user && post.author._id === user._id;
 
   return (
-    <div id="container" key={post.id}>
+    <div id="container" key={post._id}>
       <div id="post-card">
         <h2>{post.title}</h2>
         <h4>Seller: {post.author.username}</h4>
         <p>Description: {post.description}</p>
         <p>Price: {post.price}</p>
+        <p>Deliver? {post?.willDeliver ? "Yes" : "No"}</p>
         {isAuthor && (
           <button id="single-btn" onClick={handleDelete}>
             Delete Post
           </button>
         )}
         {isAuthor && (
-          <button id="single-btn" onClick={editPost}>
+          <button id="single-btn" onClick={handleEdit}>
             Edit Post
           </button>
         )}

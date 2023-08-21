@@ -13,6 +13,7 @@ import Profile from "./components/Profile";
 
 function App() {
   const [token, setToken] = useState(null);
+  const [post, setPost] = useState(null);
 
   // const handleLogout = () => {
   //   setToken(null);
@@ -42,7 +43,10 @@ function App() {
             path="/posts"
             element={<AllPosts token={token} setToken={setToken} />}
           />
-          <Route path="/posts/:postId" element={<SinglePost token={token} />} />
+          <Route
+            path="/posts/:postId"
+            element={<SinglePost token={token} post={post} />}
+          />
           <Route
             path="/newpost"
             element={<NewPostForm token={token} setToken={setToken} />}

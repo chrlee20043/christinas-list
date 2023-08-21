@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
-import { myData, postMessage } from "../API"; // Import the postMessage API function
+import { myData, postMessage } from "../API";
 
 export default function Profile() {
   const [userPosts, setUserPosts] = useState([]);
@@ -18,7 +18,7 @@ export default function Profile() {
         try {
           const response = await myData(authToken);
           setUserPosts(response.posts || []);
-          setUserMessages(response.messages || []);
+          setUserMessages(response.posts.messages || []);
         } catch (error) {
           console.error(error);
         }
@@ -50,7 +50,7 @@ export default function Profile() {
       </p>
 
       <h2>My Posts:</h2>
-      {userPosts ? (
+      {userPosts.length === 0 ? (
         <p>No posts available.</p>
       ) : (
         userPosts.map((post) => (
@@ -64,7 +64,7 @@ export default function Profile() {
         ))
       )}
       <h2>My Messages:</h2>
-      {userMessages ? (
+      {userMessages.length === 0 ? (
         <p>You have no messages</p>
       ) : (
         userMessages.map((message) => (
