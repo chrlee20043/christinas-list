@@ -18,7 +18,9 @@ export default async function fetchAllPosts() {
 
 // Retrieve my posts
 
-async function myData({ token }) {
+async function myData() {
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUyODY4ZDJjMjc1MDAwMTQ4YzU0NDgiLCJ1c2VybmFtZSI6ImNvZGluZ2dhbDkzIiwiaWF0IjoxNjkyNjQyNzc3fQ.qVwIiXjzmsjusOsRzGNSMX9kBJK8R1SJPeM5NGELQ34";
   try {
     const response = await fetch(`${API_URL}/users/me`, {
       headers: {
@@ -88,17 +90,11 @@ async function deletePost(id) {
 
 // Edit posts
 
-async function editPost(
-  post._id,
-  title,
-  description,
-  price,
-  location,
-  willDeliver,
-  { token }
-) {
+async function editPost(id, title, description, price, location, willDeliver) {
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGUyODY4ZDJjMjc1MDAwMTQ4YzU0NDgiLCJ1c2VybmFtZSI6ImNvZGluZ2dhbDkzIiwiaWF0IjoxNjkyNjQyNzc3fQ.qVwIiXjzmsjusOsRzGNSMX9kBJK8R1SJPeM5NGELQ34";
   try {
-    const response = await fetch(`${API_URL}/#PATCH-/posts/${post._id}`, {
+    const response = await fetch(`${API_URL}/#PATCH-/posts/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -122,9 +118,9 @@ async function editPost(
   }
 }
 
-const postMessage = async ({ token }, post._id) => {
+const postMessage = async ({ token }, id) => {
   try {
-    const response = await fetch(`${API_URL}/posts/${post._id}/messages`, {
+    const response = await fetch(`${API_URL}/posts/${id}/messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

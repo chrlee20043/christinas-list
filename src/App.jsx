@@ -51,6 +51,10 @@ function App() {
             path="/newpost"
             element={<NewPostForm token={token} setToken={setToken} />}
           />
+          <Route
+            path="posts/:postId/edit"
+            element={<EditPost token={token} />}
+          />
         </Routes>
       </div>
     </>

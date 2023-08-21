@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 
-export default function SinglePost({ post }) {
+export default function SinglePost({ post, id }) {
   const authToken = useSelector(selectCurrentToken);
+  // console.log(authToken);
   const user = useSelector(selectCurrentUser);
 
   const navigate = useNavigate();
 
   async function handleDelete() {
     try {
-      const result = await deletePost(post._id);
+      const result = await deletePost(id);
       console.log(result);
       navigate("/posts");
     } catch (error) {
@@ -21,7 +22,7 @@ export default function SinglePost({ post }) {
 
   async function handleEdit() {
     try {
-      const result = await editPost(authToken, post._id);
+      const result = await editPost(authToken, id);
       console.log(result);
     } catch (error) {
       console.error(error);
