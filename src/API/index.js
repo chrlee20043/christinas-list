@@ -89,7 +89,7 @@ async function deletePost(id) {
 // Edit posts
 
 async function editPost(
-  id,
+  post._id,
   title,
   description,
   price,
@@ -98,7 +98,7 @@ async function editPost(
   { token }
 ) {
   try {
-    const response = await fetch(`${API_URL}/#PATCH-/posts/${id}`, {
+    const response = await fetch(`${API_URL}/#PATCH-/posts/${post._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -122,9 +122,9 @@ async function editPost(
   }
 }
 
-const postMessage = async ({ token }, id) => {
+const postMessage = async ({ token }, post._id) => {
   try {
-    const response = await fetch(`${API_URL}/posts/${id}/messages`, {
+    const response = await fetch(`${API_URL}/posts/${post._id}/messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

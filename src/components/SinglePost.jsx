@@ -11,7 +11,7 @@ export default function SinglePost({ post }) {
 
   async function handleDelete() {
     try {
-      const result = await deletePost(id);
+      const result = await deletePost(post._id);
       console.log(result);
       navigate("/posts");
     } catch (error) {
@@ -21,7 +21,7 @@ export default function SinglePost({ post }) {
 
   async function handleEdit() {
     try {
-      const result = await editPost(authToken);
+      const result = await editPost(authToken, post._id);
       console.log(result);
     } catch (error) {
       console.error(error);
@@ -38,16 +38,14 @@ export default function SinglePost({ post }) {
         <p>Description: {post.description}</p>
         <p>Price: {post.price}</p>
         <p>Deliver? {post?.willDeliver ? "Yes" : "No"}</p>
-        {isAuthor && (
-          <button id="single-btn" onClick={handleDelete}>
-            Delete Post
-          </button>
-        )}
-        {isAuthor && (
-          <button id="single-btn" onClick={handleEdit}>
-            Edit Post
-          </button>
-        )}
+
+        <button id="single-btn" onClick={handleDelete}>
+          Delete Post
+        </button>
+
+        <button id="single-btn" onClick={handleEdit}>
+          Edit Post
+        </button>
       </div>
     </div>
   );
