@@ -36,7 +36,7 @@ export default function NewPostForm({ post, setPost }) {
     console.log(response.data.post);
     if (response.success) {
       console.log("New Post: ", response.data.post);
-      navigate("/posts");
+      navigate("/profile");
 
       // const newPosts = [...post, response.data.post];
       // setPost(newPosts);

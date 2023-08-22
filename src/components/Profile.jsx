@@ -4,15 +4,18 @@ import { useSelector } from "react-redux";
 import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 import { myData, postMessage, deletePost, editPost } from "../API";
 
-export default function Profile(id) {
+export default function Profile({ posts }) {
   const [userPosts, setUserPosts] = useState([]);
   const [userMessages, setUserMessages] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
+
   const user = useSelector(selectCurrentUser);
+  // console.log(user);
   const authToken = useSelector(selectCurrentToken);
+  // console.log(authToken);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -40,18 +43,16 @@ export default function Profile(id) {
     setIsOpen(!isOpen);
   }
 
-  async function handleDelete() {
+  async function handleDelete(id) {
     try {
       const result = await deletePost(authToken, id);
       console.log(result);
-
-      navigate("/posts");
     } catch (error) {
       console.error(error);
     }
   }
 
-  async function handleEdit() {
+  async function handleEdit(id) {
     try {
       const result = await editPost(authToken, id);
       console.log(result);
@@ -85,28 +86,32 @@ export default function Profile(id) {
       <div id="my-post-container">
         <h2>My Posts:</h2>
 
-        {userPosts.map((post) => {
-          return (
-            <div key={post._id} className="my-single-post">
-              <h3>{post.title}</h3>
-              {isOpen && (
-                <div className="expanded-content">
-                  <p>{post.description}</p>
-                  <p>{post.price}</p>
-                  <p>{post.location}</p>
-                  <p>{post?.willDeliver ? "Yes" : "No"}</p>
+        {userPosts
+          .filter((post) => post.active === true)
+          .map((post) => {
+            return (
+              <div key={post._id} className="my-single-post">
+                <h3>{post.title}</h3>
+                {isOpen && (
+                  <div className="expanded-content">
+                    <p>{post.description}</p>
+                    <p>{post.price}</p>
+                    <p>{post.location}</p>
+                    <p>{post?.willDeliver ? "Yes" : "No"}</p>
+                  </div>
+                )}
+                <div className="buttons">
+                  <button className="details-button" onClick={handleDetails}>
+                    {isOpen ? "See Less" : "See Details"}
+                  </button>
+                  <button onClick={() => handleDelete(post._id)}>
+                    Delete me
+                  </button>
+                  <button onClick={() => handleEdit(post._id)}>Edit me</button>
                 </div>
-              )}
-              <div className="buttons">
-                <button className="details-button" onClick={handleDetails}>
-                  {isOpen ? "See Less" : "See Details"}
-                </button>
-                <button onClick={handleDelete}>Delete me</button>
-                <button onClick={handleEdit}>Edit me</button>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
 
         <div id="my-messages">
           <h2>My Messages:</h2>
