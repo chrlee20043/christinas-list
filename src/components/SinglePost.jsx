@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 
@@ -6,8 +5,6 @@ export default function SinglePost({ post }) {
   const authToken = useSelector(selectCurrentToken);
   // console.log(authToken);
   const user = useSelector(selectCurrentUser);
-
-  const navigate = useNavigate();
 
   return (
     <div id="container" key={post._id}>
