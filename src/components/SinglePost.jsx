@@ -11,17 +11,6 @@ export default function SinglePost({ post }) {
 
   const navigate = useNavigate();
 
-  async function handleDelete() {
-    try {
-      const result = await deletePost(authToken, id);
-      console.log(result);
-
-      navigate("/posts");
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   return (
     <div id="container" key={post._id}>
       <div id="post-card">
@@ -31,13 +20,13 @@ export default function SinglePost({ post }) {
         <p>Price: {post.price}</p>
         <p>Deliver? {post?.willDeliver ? "Yes" : "No"}</p>
 
-        <button id="single-btn" onClick={handleDelete}>
+        {/* <button id="single-btn" onClick={handleDelete}>
           Delete Post
-        </button>
+        </button> */}
 
-        <button id="single-btn" onClick={() => navigate(`posts/${id}/edit`)}>
+        {/* <button id="single-btn" onClick={() => navigate(`posts/${id}/edit`)}>
           Edit Post
-        </button>
+        </button> */}
       </div>
     </div>
   );

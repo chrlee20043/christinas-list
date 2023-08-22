@@ -1,20 +1,27 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Public = () => {
-  const content = (
+export default function Public() {
+  const navigate = useNavigate();
+
+  const handleRegisterClick = () => {
+    navigate("/register");
+  };
+
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
+
+  return (
     <section className="public">
       <header>
         <h1>Welcome to Christina's Closet!</h1>
-        <Link to="/login">Log In</Link>
+        <button onClick={handleRegisterClick}>Register</button>
+        <br />
+        <button onClick={handleLoginClick}>Log In</button>
       </header>
       <main>
-        <p>
-          Christina's Closet is a thrift store where you can find hidden
-          treasures!
-        </p>
+        <p>A thrift store where you can find hidden treasures!</p>
       </main>
     </section>
   );
-  return content;
-};
-export default Public;
+}

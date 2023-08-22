@@ -1,90 +1,13 @@
-// import React, { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { useSelector } from "react-redux";
-// import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
-// import { myData, postMessage } from "../API";
-
-// export default function Profile() {
-//   const [userPosts, setUserPosts] = useState([]);
-//   const [userMessages, setUserMessages] = useState([]);
-//   const [error, setError] = useState(null);
-
-//   const navigate = useNavigate();
-//   const user = useSelector(selectCurrentUser);
-//   const authToken = useSelector(selectCurrentToken);
-
-//   useEffect(() => {
-//     async function fetchUserData() {
-//       if (authToken) {
-//         try {
-//           const response = await myData(authToken);
-//           setUserPosts(response.posts);
-//           console.log(response);
-//           setUserMessages(response.messages);
-//         } catch (error) {
-//           setError("nothing to see here");
-//         }
-//       }
-//     }
-
-//     fetchUserData();
-//   }, [authToken]);
-
-//   const handlePostMessage = async () => {
-//     try {
-//       const response = await postMessage(authToken); // Use the authToken here
-//       console.log(response);
-//     } catch (error) {
-//       setError("no messages");
-//     }
-//   };
-
-//   return (
-//     <section className="welcome">
-//       {authToken && <h1>Welcome {user}!</h1>}
-//       <p>Browse our collection!</p>
-//       <p>
-//         <button onClick={() => navigate("/posts")}>See All Posts</button>
-//       </p>
-//       <br />
-//       <p>
-//         <button onClick={() => navigate("/newpost")}>Submit New Post</button>
-//       </p>
-
-//       <h2>My Posts:</h2>
-//       {userPosts &&
-//         userPosts.map((post) => (
-//           <div key={post._id}>
-//             <h3>{post.title}</h3>
-//             <p>{post.description}</p>
-//             <button onClick={() => navigate(`/posts/${post._id}`)}>
-//               See Full Post
-//             </button>
-//           </div>
-//         ))}
-//       <h2>My Messages:</h2>
-//       {userMessages &&
-//         userMessages.map((message) => (
-//           <div key={message._id}>
-//             <p>From: {message.fromUser.username}</p>
-//             <p>Content: {message.content}</p>
-//           </div>
-//         ))}
-//       {error && <p>{error}</p>}
-//       <button onClick={handlePostMessage}>See Message</button>
-//     </section>
-//   );
-// }
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
-import { myData, postMessage } from "../API";
+import { myData, postMessage, deletePost, editPost } from "../API";
 
-export default function Profile() {
+export default function Profile(id) {
   const [userPosts, setUserPosts] = useState([]);
   const [userMessages, setUserMessages] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -99,16 +22,11 @@ export default function Profile() {
       }
 
       try {
-        const response = await myData(authToken);
-        console.log("Response from myData API:", response);
+        const myAPIData = await myData(authToken);
+        console.log("Response from myData API:", myAPIData);
 
-        if (response && response.posts) {
-          setUserPosts(response.posts);
-        }
-
-        if (response && response.messages) {
-          setUserMessages(response.messages);
-        }
+        setUserPosts(myAPIData.data.posts || []);
+        setUserMessages(myAPIData.data.messages || []);
       } catch (error) {
         setError("An error occurred while fetching user data");
         console.error(error);
@@ -117,6 +35,30 @@ export default function Profile() {
 
     fetchUserData();
   }, [authToken]);
+
+  async function handleDetails() {
+    setIsOpen(!isOpen);
+  }
+
+  async function handleDelete() {
+    try {
+      const result = await deletePost(authToken, id);
+      console.log(result);
+
+      navigate("/posts");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function handleEdit() {
+    try {
+      const result = await editPost(authToken, id);
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const handlePostMessage = async () => {
     try {
@@ -140,35 +82,46 @@ export default function Profile() {
         <button onClick={() => navigate("/newpost")}>Submit New Post</button>
       </p>
 
-      <h2>My Posts:</h2>
-      {userPosts.length === 0 ? (
-        <p>No posts available.</p>
-      ) : (
-        userPosts.map((post) => (
-          <div key={post._id}>
-            <h3>{post.title}</h3>
-            <p>{post.description}</p>
-            <button onClick={() => navigate(`/posts/${post._id}`)}>
-              See Full Post
-            </button>
-          </div>
-        ))
-      )}
+      <div id="my-post-container">
+        <h2>My Posts:</h2>
 
-      <h2>My Messages:</h2>
-      {userMessages.length === 0 ? (
-        <p>You have no messages</p>
-      ) : (
-        userMessages.map((message) => (
-          <div key={message._id}>
-            <p>From: {message.fromUser.username}</p>
-            <p>Content: {message.content}</p>
-          </div>
-        ))
-      )}
+        {userPosts.map((post) => {
+          return (
+            <div key={post._id} className="my-single-post">
+              <h3>{post.title}</h3>
+              {isOpen && (
+                <div className="expanded-content">
+                  <p>{post.description}</p>
+                  <p>{post.price}</p>
+                  <p>{post.location}</p>
+                  <p>{post?.willDeliver ? "Yes" : "No"}</p>
+                </div>
+              )}
+              <div className="buttons">
+                <button className="details-button" onClick={handleDetails}>
+                  {isOpen ? "See Less" : "See Details"}
+                </button>
+                <button onClick={handleDelete}>Delete me</button>
+                <button onClick={handleEdit}>Edit me</button>
+              </div>
+            </div>
+          );
+        })}
 
-      {error && <p>{error}</p>}
-      <button onClick={handlePostMessage}>See Message</button>
+        <div id="my-messages">
+          <h2>My Messages:</h2>
+          {userMessages.map((post) => {
+            return (
+              <div key={post._id}>
+                <h3>{post.content}</h3>
+              </div>
+            );
+          })}
+        </div>
+
+        {error && <p>{error}</p>}
+        <button onClick={handlePostMessage}>See Message</button>
+      </div>
     </section>
   );
 }

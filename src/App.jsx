@@ -10,8 +10,6 @@ import NavBar from "./components/NavBar";
 import NewPostForm from "./components/NewPostForm";
 import SinglePost from "./components/SinglePost";
 import Profile from "./components/Profile";
-import EditPost from "./components/EditPost";
-
 function App() {
   const [token, setToken] = useState(null);
   const [post, setPost] = useState(null);
@@ -52,7 +50,6 @@ function App() {
             path="/newpost"
             element={<NewPostForm token={token} setToken={setToken} />}
           />
-          <Route path="posts/:id/edit" element={<EditPost token={token} />} />
         </Routes>
       </div>
     </>
