@@ -5,7 +5,7 @@ import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 import EditPost from "./EditPost";
 import { myData, postMessage, deletePost, editPost } from "../API";
 
-export default function Profile({ posts }) {
+export default function Profile({ posts, token }) {
   const [userPosts, setUserPosts] = useState([]);
   const [userMessages, setUserMessages] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +28,7 @@ export default function Profile({ posts }) {
 
       try {
         const myAPIData = await myData(authToken);
-        console.log("Response from myData API:", myAPIData);
+        // console.log("Response from myData API:", myAPIData);
 
         setUserPosts(myAPIData.data.posts || []);
         setUserMessages(myAPIData.data.messages || []);
@@ -121,7 +121,12 @@ export default function Profile({ posts }) {
                   </button>
                   {editingPostId === post._id ? (
                     <div>
-                      <EditPost token={authToken} post={post} />
+                      <EditPost
+                        id={post._id}
+                        token={token}
+                        posts={posts}
+                        post={post}
+                      />
                       <button onClick={onCancel}>Cancel</button>
                     </div>
                   ) : (

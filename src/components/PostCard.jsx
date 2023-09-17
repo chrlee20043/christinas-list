@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { selectCurrentToken, selectCurrentUser } from "../Redux/authSlice";
@@ -7,6 +7,12 @@ import { selectCurrentToken, selectCurrentUser } from "../Redux/authSlice";
 export default function PostCard({ post, token }) {
   const [isOpen, setIsOpen] = useState(false);
   const [username, setUsername] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [itemLocation, setItemLocation] = useState("");
+  const [willDeliver, setWillDeliver] = useState("");
+
   const [message, setMessage] = useState("");
   const [content, setContent] = useState("");
 
@@ -16,33 +22,35 @@ export default function PostCard({ post, token }) {
   const { postId } = useParams();
   const navigate = useNavigate();
 
-  const location = useLocation();
-  const singlePost = location.state.post;
-  const myToken = location.state.token;
-
   async function handleClick() {
     setIsOpen(!isOpen);
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const myMessage = {
-      message,
-      content,
-    };
+    async function updatePost() {
+      const updatedPost = {
+        post: { title, description, price, location, willDeliver },
+      };
+      const editedPost = await editPost(
+        location.state.post._id,
+        updatedPost,
+        token
+      );
+      return editedPost;
+    }
 
-    const sendMessage = await postMessage(postId, authToken, myMessage);
-    return sendMessage;
+    updatePost();
   }
 
   return (
-    <div id="container" key={singlePost._id}>
+    <div id="container" key={post._id}>
       <div id="post-card">
-        <h2>{singlePost.title}</h2>
-        <h4>Seller: {singlePost.author.username}</h4>
-        <p>Description: {singlePost.description}</p>
-        <p>Price: {singlePost.price}</p>
-        <p>Deliver? {singlePost?.willDeliver ? "Yes" : "No"}</p>
+        <h2>{post.title}</h2>
+        <h4>Seller: {post.author.username}</h4>
+        <p>Description: {post.description}</p>
+        <p>Price: {post.price}</p>
+        <p>Deliver? {post?.willDeliver ? "Yes" : "No"}</p>
 
         <button onClick={() => navigate("/posts")}>Return to Posts</button>
         <button className="card-toggle-button" onClick={handleClick}>
