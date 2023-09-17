@@ -101,13 +101,11 @@ async function editPost(
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        post: {
-          title,
-          description,
-          price,
-          location,
-          willDeliver,
-        },
+        title,
+        description,
+        price,
+        location,
+        willDeliver,
       }),
     });
     const result = await response.json();
@@ -118,7 +116,7 @@ async function editPost(
   }
 }
 
-const postMessage = async (token, id) => {
+const postMessage = async (token, id, content) => {
   try {
     const response = await fetch(`${API_URL}/posts/${id}/messages`, {
       method: "POST",
@@ -128,7 +126,7 @@ const postMessage = async (token, id) => {
       },
       body: JSON.stringify({
         message: {
-          content: "Do you still have this?  Would you take $10 less?",
+          content,
         },
       }),
     });

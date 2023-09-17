@@ -2,20 +2,22 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
+import EditPost from "./EditPost";
 import { myData, postMessage, deletePost, editPost } from "../API";
 
 export default function Profile({ posts }) {
   const [userPosts, setUserPosts] = useState([]);
   const [userMessages, setUserMessages] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [openToggle, setOpenToggle] = useState(false);
   const [error, setError] = useState(null);
+
+  const [editingPostId, setEditingPostId] = useState(null);
 
   const navigate = useNavigate();
 
   const user = useSelector(selectCurrentUser);
-  // console.log(user);
   const authToken = useSelector(selectCurrentToken);
-  // console.log(authToken);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -43,27 +45,37 @@ export default function Profile({ posts }) {
     setIsOpen(!isOpen);
   }
 
-  async function handleDelete(id) {
+  async function handleDelete(id, authToken) {
     try {
-      const result = await deletePost(authToken, id);
+      const result = await deletePost(id, authToken);
       console.log(result);
     } catch (error) {
       console.error(error);
     }
   }
 
-  async function handleEdit(id) {
-    try {
-      const result = await editPost(authToken, id);
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-    }
+  // async function handleEdit(id, authToken) {
+  //   // setOpenToggle(!openToggle);
+  //   setEditingPostId(id);
+
+  //   const editPostData = await myData(authToken);
+  //   console.log("my post data:", editPostData);
+
+  //   try {
+  //     const result = await editPost(id, authToken);
+  //     console.log(result);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
+  async function onCancel() {
+    setEditingPostId(null);
   }
 
   const handlePostMessage = async () => {
     try {
-      const response = await postMessage(authToken); // Use the authToken here
+      const response = await postMessage(id, authToken);
       console.log("Response from postMessage API:", response);
     } catch (error) {
       setError("An error occurred while posting a message");
@@ -104,10 +116,19 @@ export default function Profile({ posts }) {
                   <button className="details-button" onClick={handleDetails}>
                     {isOpen ? "See Less" : "See Details"}
                   </button>
-                  <button onClick={() => handleDelete(post._id)}>
+                  <button onClick={() => handleDelete(post._id, authToken)}>
                     Delete me
                   </button>
-                  <button onClick={() => handleEdit(post._id)}>Edit me</button>
+                  {editingPostId === post._id ? (
+                    <div>
+                      <EditPost token={authToken} post={post} />
+                      <button onClick={onCancel}>Cancel</button>
+                    </div>
+                  ) : (
+                    <button onClick={() => setEditingPostId(post._id)}>
+                      Edit me
+                    </button>
+                  )}
                 </div>
               </div>
             );

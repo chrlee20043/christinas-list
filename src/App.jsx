@@ -10,6 +10,9 @@ import NavBar from "./components/NavBar";
 import NewPostForm from "./components/NewPostForm";
 import SinglePost from "./components/SinglePost";
 import Profile from "./components/Profile";
+import PostCard from "./components/PostCard";
+// import EditPost from "./components/EditPost";
+
 function App() {
   const [token, setToken] = useState(null);
   const [post, setPost] = useState(null);
@@ -42,14 +45,20 @@ function App() {
             path="/posts"
             element={<AllPosts token={token} setToken={setToken} />}
           />
-          <Route
+          {/* <Route
             path="/posts/:id"
-            element={<SinglePost token={token} post={post} setPost={setPost} />}
-          />
+            element={<SinglePost token={token} post={post} setPost={setPost} />} */}
+          {/* /> */}
           <Route
             path="/newpost"
             element={<NewPostForm token={token} setToken={setToken} />}
           />
+          <Route path="/posts/:postId" element={<PostCard token={token} />} />
+
+          {/* <Route
+            path="/editpost"
+            element={<EditPost token={token} post={post} />}
+          /> */}
         </Routes>
       </div>
     </>
