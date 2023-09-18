@@ -6,7 +6,7 @@ import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 // import { useLocation } from "react-router-dom";
 import { editPost, myData } from "../API";
 
-export default function EditPost({ id, token, posts, post }) {
+export default function EditPost({ id, onUpdateEditedPost }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -25,14 +25,12 @@ export default function EditPost({ id, token, posts, post }) {
       try {
         const editPostData = await myData(authToken);
 
-        // Assuming the data structure is editPostData.data.posts
         const postsData = editPostData.data.posts;
 
-        // Find the post you want to edit based on some criteria (e.g., post ID)
         const postToEdit = postsData.find((post) => post._id === id);
 
         if (postToEdit) {
-          // Set the state variables with the values from the post to edit
+          // Set the state variables with the values from the existing post
           setTitle(postToEdit.title);
           setDescription(postToEdit.description);
           setPrice(postToEdit.price);
@@ -59,10 +57,10 @@ export default function EditPost({ id, token, posts, post }) {
         location,
         willDeliver,
       };
+      //   console.log("update post: ", updatedPost);
 
       const editedPost = await editPost(
         id,
-        // updatedPost,
         updatedPost.title,
         updatedPost.description,
         updatedPost.price,
@@ -70,10 +68,19 @@ export default function EditPost({ id, token, posts, post }) {
         updatedPost.willDeliver,
         authToken
       );
-      setIsFormOpen(false);
+      //   console.log("edited post:", editedPost);
 
-      //   console.log("auth token when editing: ", authToken);
-      return editedPost;
+      setTitle(updatedPost.title);
+      setDescription(updatedPost.description);
+      setPrice(updatedPost.price);
+      setLocation(updatedPost.location);
+      setWillDeliver(updatedPost.willDeliver);
+
+      onUpdateEditedPost(id, updatedPost);
+      console.log("id: ", id, "updated post: ", updatedPost);
+
+      setIsFormOpen(false);
+      //   console.log("my updated post: ", updatedPost);
     }
 
     updatePost();

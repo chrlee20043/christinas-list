@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 import EditPost from "./EditPost";
-import { myData, postMessage, deletePost, editPost } from "../API";
+import { myData, postMessage, deletePost } from "../API";
 
 export default function Profile({ posts, token }) {
   const [userPosts, setUserPosts] = useState([]);
   const [userMessages, setUserMessages] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [openToggle, setOpenToggle] = useState(false);
   const [error, setError] = useState(null);
 
   const [editingPostId, setEditingPostId] = useState(null);
@@ -41,6 +40,16 @@ export default function Profile({ posts, token }) {
     fetchUserData();
   }, [authToken]);
 
+  const updateEditedPost = (postId, editedData) => {
+    console.log("edited data: ", editedData);
+    setUserPosts((posts) => {
+      // console.log("PROFILE POSTS:", posts);
+      return posts.map((post) =>
+        post._id === postId ? { ...post, ...editedData } : post
+      );
+    });
+  };
+
   async function handleDetails() {
     setIsOpen(!isOpen);
   }
@@ -54,26 +63,11 @@ export default function Profile({ posts, token }) {
     }
   }
 
-  // async function handleEdit(id, authToken) {
-  //   // setOpenToggle(!openToggle);
-  //   setEditingPostId(id);
-
-  //   const editPostData = await myData(authToken);
-  //   console.log("my post data:", editPostData);
-
-  //   try {
-  //     const result = await editPost(id, authToken);
-  //     console.log(result);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
+  // async function onCancel() {
+  //   setEditingPostId(null);
   // }
 
-  async function onCancel() {
-    setEditingPostId(null);
-  }
-
-  const handlePostMessage = async () => {
+  const handlePostMessage = async (id) => {
     try {
       const response = await postMessage(id, authToken);
       console.log("Response from postMessage API:", response);
@@ -123,11 +117,16 @@ export default function Profile({ posts, token }) {
                     <div>
                       <EditPost
                         id={post._id}
-                        token={token}
+                        token={authToken}
                         posts={posts}
                         post={post}
+                        onUpdateEditedPost={updateEditedPost}
                       />
-                      <button onClick={onCancel}>Cancel</button>
+                      {editingPostId === post._id && (
+                        <button onClick={() => setEditingPostId(null)}>
+                          Cancel
+                        </button>
+                      )}
                     </div>
                   ) : (
                     <button onClick={() => setEditingPostId(post._id)}>

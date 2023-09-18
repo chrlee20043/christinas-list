@@ -109,7 +109,7 @@ async function editPost(
       }),
     });
     const result = await response.json();
-    console.log(result);
+    console.log("fetching edited post: ", result);
     return result;
   } catch (err) {
     console.error(err);
