@@ -6,7 +6,7 @@ import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 // import { useLocation } from "react-router-dom";
 import { editPost, myData } from "../API";
 
-export default function EditPost({ id, onUpdateEditedPost }) {
+export default function EditPost({ id, onUpdateEditedPost, setEditingPostId }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -44,7 +44,7 @@ export default function EditPost({ id, onUpdateEditedPost }) {
     };
 
     fetchPost();
-  }, []);
+  }, [id, authToken]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,7 +59,7 @@ export default function EditPost({ id, onUpdateEditedPost }) {
       };
       //   console.log("update post: ", updatedPost);
 
-      const editedPost = await editPost(
+      await editPost(
         id,
         updatedPost.title,
         updatedPost.description,
@@ -151,6 +151,9 @@ export default function EditPost({ id, onUpdateEditedPost }) {
           </fieldset>
 
           <button type="submit">Submit</button>
+          <button onClick={() => setEditingPostId(null)} type="button">
+            Cancel
+          </button>
         </form>
       ) : (
         <></>

@@ -14,14 +14,13 @@ export default function Public() {
   return (
     <section className="public">
       <header>
-        <h1>Welcome to Christina's Closet!</h1>
+        <h1>Welcome to Christina's List!</h1>
+        <p>An online store where you can sell and purchase hidden treasures!</p>
         <button onClick={handleRegisterClick}>Register</button>
         <br />
         <button onClick={handleLoginClick}>Log In</button>
       </header>
-      <main>
-        <p>A thrift store where you can find hidden treasures!</p>
-      </main>
+      <main></main>
     </section>
   );
 }

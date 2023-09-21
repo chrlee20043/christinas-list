@@ -10,7 +10,6 @@ export default function Profile({ posts, token }) {
   const [userMessages, setUserMessages] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null);
-
   const [editingPostId, setEditingPostId] = useState(null);
 
   const navigate = useNavigate();
@@ -42,9 +41,9 @@ export default function Profile({ posts, token }) {
 
   const updateEditedPost = (postId, editedData) => {
     console.log("edited data: ", editedData);
-    setUserPosts((posts) => {
-      // console.log("PROFILE POSTS:", posts);
-      return posts.map((post) =>
+    setUserPosts((originalPosts) => {
+      console.log("PROFILE POSTS:", originalPosts);
+      return originalPosts.map((post) =>
         post._id === postId ? { ...post, ...editedData } : post
       );
     });
@@ -62,10 +61,6 @@ export default function Profile({ posts, token }) {
       console.error(error);
     }
   }
-
-  // async function onCancel() {
-  //   setEditingPostId(null);
-  // }
 
   const handlePostMessage = async (id) => {
     try {
@@ -113,25 +108,25 @@ export default function Profile({ posts, token }) {
                   <button onClick={() => handleDelete(post._id, authToken)}>
                     Delete me
                   </button>
-                  {editingPostId === post._id ? (
-                    <div>
-                      <EditPost
-                        id={post._id}
-                        token={authToken}
-                        posts={posts}
-                        post={post}
-                        onUpdateEditedPost={updateEditedPost}
-                      />
-                      {editingPostId === post._id && (
-                        <button onClick={() => setEditingPostId(null)}>
-                          Cancel
-                        </button>
-                      )}
-                    </div>
-                  ) : (
-                    <button onClick={() => setEditingPostId(post._id)}>
-                      Edit me
-                    </button>
+
+                  <button
+                    onClick={() =>
+                      setEditingPostId(
+                        editingPostId === post._id ? null : post._id
+                      )
+                    }
+                  >
+                    Edit
+                  </button>
+                  {editingPostId === post._id && (
+                    <EditPost
+                      id={post._id}
+                      token={authToken}
+                      posts={posts}
+                      post={post}
+                      onUpdateEditedPost={updateEditedPost}
+                      setEditingPostId={setEditingPostId}
+                    />
                   )}
                 </div>
               </div>
