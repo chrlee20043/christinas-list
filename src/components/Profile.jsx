@@ -135,10 +135,12 @@ export default function Profile({ posts, token }) {
 
         <div id="my-messages">
           <h2>My Messages:</h2>
-          {userMessages.map((post) => {
+          {userMessages.map((message) => {
             return (
-              <div key={post._id}>
-                <h3>{post.content}</h3>
+              <div key={message._id}>
+                <p>Seller: {message.post.author.username}</p>
+                <p>Description: {message.post.title}</p>
+                <p>My Message: {message.content}</p>
               </div>
             );
           })}

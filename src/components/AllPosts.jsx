@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 // import NewPostForm from "./NewPostForm";
 import SinglePost from "./SinglePost";
 import fetchAllPosts from "../API";
+import { useSelector } from "react-redux";
+import { selectCurrentToken, selectCurrentUser } from "../Redux/authSlice";
 
 // User will see all posts and be able to click on one to see more details
 // include search bar
@@ -12,6 +14,11 @@ export default function AllPosts({ token }) {
   const [searchParam, setSearchParam] = useState("");
   const [error, setError] = useState(null);
   // const navigate = useNavigate();
+
+  const authToken = useSelector(selectCurrentToken);
+  // console.log("my auth token: ", authToken);
+  const user = useSelector(selectCurrentUser);
+  console.log("user", user);
 
   async function renderPosts() {
     try {
@@ -42,7 +49,12 @@ export default function AllPosts({ token }) {
         </label>
       </div>
       {postsToDisplay.map((post) => (
-        <SinglePost key={post._id} post={post} id={post._id} token={token} />
+        <SinglePost
+          key={post._id}
+          post={post}
+          postId={post._id}
+          token={token}
+        />
       ))}
     </div>
   );

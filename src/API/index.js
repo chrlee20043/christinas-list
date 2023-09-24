@@ -116,22 +116,18 @@ async function editPost(
   }
 }
 
-const postMessage = async (token, id, content) => {
+const postMessage = async (postId, token, postObj) => {
   try {
-    const response = await fetch(`${API_URL}/posts/${id}/messages`, {
+    const response = await fetch(`${API_URL}/posts/${postId}/messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        message: {
-          content,
-        },
-      }),
+      body: JSON.stringify(postObj),
     });
     const result = await response.json();
-    console.log(result);
+    console.log("my message: ", result);
     return result;
   } catch (err) {
     console.error(err);

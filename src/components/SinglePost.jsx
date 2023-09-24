@@ -3,14 +3,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
+import { postMessage } from "../API";
 
-export default function SinglePost({ post, id, token }) {
+export default function SinglePost({ post, postId, token }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [username, setUsername] = useState("");
-  // const [title, setTitle] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [price, setPrice] = useState("");
-  // const [willDeliver, setWillDeliver] = useState("");
 
   const [content, setContent] = useState("");
 
@@ -19,6 +15,8 @@ export default function SinglePost({ post, id, token }) {
 
   const navigate = useNavigate();
 
+  // console.log("POST ID:", postId);
+
   async function handleClick() {
     setIsOpen(!isOpen);
   }
@@ -26,11 +24,19 @@ export default function SinglePost({ post, id, token }) {
   async function handleSubmit(e) {
     e.preventDefault();
     // console.log(content);
+
+    const postObj = {
+      message: {
+        content: content,
+      },
+    };
+
     try {
-      const response = await postMessage(authToken, id, content);
+      const response = await postMessage(postId, authToken, postObj);
       console.log("Response from postMessage API:", response);
 
       setContent("");
+      setIsOpen(false);
     } catch (error) {
       console.error(error);
     }
@@ -44,13 +50,7 @@ export default function SinglePost({ post, id, token }) {
         <p>Description: {post.description}</p>
         <p>Price: {post.price}</p>
         <p>Deliver? {post?.willDeliver ? "Yes" : "No"}</p>
-        {/* <button
-          onClick={() =>
-            navigate(`/posts/${post._id}`, { state: { post, token } })
-          }
-        >
-          See Details
-        </button> */}
+
         <button className="card-toggle-button" onClick={handleClick}>
           {isOpen ? "Cancel" : "Send Message"}
         </button>
@@ -62,15 +62,8 @@ export default function SinglePost({ post, id, token }) {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Your username"
-                  onChange={(event) => setUsername(event.target.value)}
-                />
-              </div>
-              <div className="col">
-                <input
-                  type="text"
-                  className="form-control"
                   placeholder="Message"
+                  value={content}
                   onChange={(event) => setContent(event.target.value)}
                 />
               </div>

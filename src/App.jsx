@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-// import PrivateRoute from "./components/PrivateRoute";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "./Redux/authSlice";
 import "./App.css";
 import AllPosts from "./components/AllPosts";
 import Home from "./components/Home";
@@ -8,50 +9,44 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import NewPostForm from "./components/NewPostForm";
-// import SinglePost from "./components/SinglePost";
 import Profile from "./components/Profile";
-// import EditPost from "./components/EditPost";
+
+// const handleLogout = () => {
+//   setToken(null);
+// };
 
 function App() {
-  const [token, setToken] = useState(null);
-  const [post, setPost] = useState(null);
+  const [posts, setPosts] = useState("");
 
-  // const handleLogout = () => {
-  //   setToken(null);
-  // };
+  const dispatch = useDispatch();
+  const authToken = localStorage.getItem("authToken");
+
+  useEffect(() => {
+    if (authToken) {
+      dispatch(setCredentials({ token: authToken }));
+    }
+  }, [authToken, dispatch]);
 
   return (
     <>
       <div>
-        <NavBar token={token} />
+        <NavBar token={authToken} />
       </div>
 
       <div id="routeDiv">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/login"
-            element={<Login token={token} setToken={setToken} />}
-          />
-          <Route
-            path="/register"
-            element={<Register token={token} setToken={setToken} />}
-          />
+          <Route path="/login" element={<Login token={authToken} />} />
+          <Route path="/register" element={<Register token={authToken} />} />
 
-          <Route path="/profile" element={<Profile token={token} />} />
+          <Route path="/profile" element={<Profile token={authToken} />} />
 
-          <Route
-            path="/posts"
-            element={<AllPosts token={token} setToken={setToken} />}
-          />
+          <Route path="/posts" element={<AllPosts token={authToken} />} />
           {/* <Route
             path="/posts/:id"
             element={<SinglePost token={token} post={post} setPost={setPost} />} */}
           {/* /> */}
-          <Route
-            path="/newpost"
-            element={<NewPostForm token={token} setToken={setToken} />}
-          />
+          <Route path="/newpost" element={<NewPostForm token={authToken} />} />
 
           {/* <Route
             path="/editpost"
