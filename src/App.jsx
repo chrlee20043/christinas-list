@@ -16,8 +16,6 @@ import Profile from "./components/Profile";
 // };
 
 function App() {
-  const [posts, setPosts] = useState("");
-
   const dispatch = useDispatch();
   const authToken = localStorage.getItem("authToken");
 
@@ -42,16 +40,8 @@ function App() {
           <Route path="/profile" element={<Profile token={authToken} />} />
 
           <Route path="/posts" element={<AllPosts token={authToken} />} />
-          {/* <Route
-            path="/posts/:id"
-            element={<SinglePost token={token} post={post} setPost={setPost} />} */}
-          {/* /> */}
-          <Route path="/newpost" element={<NewPostForm token={authToken} />} />
 
-          {/* <Route
-            path="/editpost"
-            element={<EditPost token={token} post={post} />}
-          /> */}
+          <Route path="/newpost" element={<NewPostForm token={authToken} />} />
         </Routes>
       </div>
     </>
