@@ -8,9 +8,8 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import NewPostForm from "./components/NewPostForm";
-import SinglePost from "./components/SinglePost";
+// import SinglePost from "./components/SinglePost";
 import Profile from "./components/Profile";
-import PostCard from "./components/PostCard";
 // import EditPost from "./components/EditPost";
 
 function App() {
@@ -53,7 +52,6 @@ function App() {
             path="/newpost"
             element={<NewPostForm token={token} setToken={setToken} />}
           />
-          <Route path="/posts/:postId" element={<PostCard token={token} />} />
 
           {/* <Route
             path="/editpost"

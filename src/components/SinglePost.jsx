@@ -7,10 +7,12 @@ import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 export default function SinglePost({ post, id, token }) {
   const [isOpen, setIsOpen] = useState(false);
   const [username, setUsername] = useState("");
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [willDeliver, setWillDeliver] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [description, setDescription] = useState("");
+  // const [price, setPrice] = useState("");
+  // const [willDeliver, setWillDeliver] = useState("");
+
+  const [content, setContent] = useState("");
 
   const authToken = useSelector(selectCurrentToken);
   const user = useSelector(selectCurrentUser);
@@ -21,8 +23,17 @@ export default function SinglePost({ post, id, token }) {
     setIsOpen(!isOpen);
   }
 
-  async function handleSubmit() {
-    <p>handle submit</p>;
+  async function handleSubmit(e) {
+    e.preventDefault();
+    // console.log(content);
+    try {
+      const response = await postMessage(authToken, id, content);
+      console.log("Response from postMessage API:", response);
+
+      setContent("");
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
