@@ -2,6 +2,13 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
 body {
   background-color: #8EC5FC;
 background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
@@ -16,16 +23,42 @@ background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
 
 #navbar {
   display: flex;
-  justify-content: space-evenly;
-
+ align-items: center;
+  justify-content: space-between;
+	padding: 20px 80px;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
 }
 
-#navbar a {
+/* #navbar-links {
   display: flex;
-  justify-content:right;
-  float: right;
-  margin-right: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} */
+
+
+#navbar-links li {
+  display: inline-block;
+  list-style: none;
+	padding: 0 20px;
+  margin: 10px;
+}
+
+#navbar-links li a {
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 600;
+  transition: 0.3s ease-in-out;
+  display: inline-block;
+  list-style: none;
+	padding: 14px 16px;
+  text-align: center;
+  margin-right: 2em;
   line-height: 80px;
+  padding: 10px;
+	font-weight: bold;
 }
 
 #post-card {
@@ -108,8 +141,9 @@ background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
 .message-card {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  margin: 1rem;
+  border-radius: 5px;
+  border: 2px solid white;
 }
 
 #my-post-container {

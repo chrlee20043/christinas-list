@@ -19,17 +19,22 @@ export default function NavBar() {
   return (
     <div id="navbar">
       <h1 id="navbar-title">Christina's Closet</h1>
-      <div id="navbar-links">
-        <Link to="/">Home</Link>
-        <Link to="/profile">Profile</Link>
-        <Link to="/posts">Posts</Link>
-        {/* <Link to="/logout">Log Out</Link> */}
+      <ul id="navbar-links">
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/profile">Profile</Link>
+        </li>
+        <li>
+          <Link to="/posts">Posts</Link>
+        </li>
         {token && (
           <button type="button" onClick={onLogout}>
             Log Out
           </button>
         )}
-      </div>
+      </ul>
     </div>
   );
 }

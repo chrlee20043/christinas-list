@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 import EditPost from "./EditPost";
-import { myData, postMessage, deletePost } from "../API";
+import { myData, deletePost } from "../API";
 
 export default function Profile({ posts, token }) {
   const [userPosts, setUserPosts] = useState([]);
@@ -39,7 +39,7 @@ export default function Profile({ posts, token }) {
     fetchUserData();
   }, [authToken]);
 
-  const updateEditedPost = (postId, editedData) => {
+  async function updateEditedPost(postId, editedData) {
     console.log("edited data: ", editedData);
     setUserPosts((originalPosts) => {
       console.log("PROFILE POSTS:", originalPosts);
@@ -47,7 +47,7 @@ export default function Profile({ posts, token }) {
         post._id === postId ? { ...post, ...editedData } : post
       );
     });
-  };
+  }
 
   async function handleDetails() {
     setIsOpen(!isOpen);
@@ -61,16 +61,6 @@ export default function Profile({ posts, token }) {
       console.error(error);
     }
   }
-
-  const handlePostMessage = async (id) => {
-    try {
-      const response = await postMessage(id, authToken);
-      console.log("Response from postMessage API:", response);
-    } catch (error) {
-      setError("An error occurred while posting a message");
-      console.error(error);
-    }
-  };
 
   return (
     <section className="welcome">
@@ -137,7 +127,7 @@ export default function Profile({ posts, token }) {
           <h2>My Messages:</h2>
           {userMessages.map((message) => {
             return (
-              <div key={message._id}>
+              <div className="message-card" key={message._id}>
                 <p>Seller: {message.post.author.username}</p>
                 <p>Description: {message.post.title}</p>
                 <p>My Message: {message.content}</p>
@@ -147,7 +137,6 @@ export default function Profile({ posts, token }) {
         </div>
 
         {error && <p>{error}</p>}
-        <button onClick={handlePostMessage}>See Message</button>
       </div>
     </section>
   );

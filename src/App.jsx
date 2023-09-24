@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "./Redux/authSlice";
-import "./App.css";
+import "./index.css";
 import AllPosts from "./components/AllPosts";
 import Home from "./components/Home";
 import Register from "./components/Register";
