@@ -27,12 +27,19 @@ export default function NavBar() {
           <Link to="/profile">Profile</Link>
         </li>
         <li>
-          <Link to="/posts">Posts</Link>
+          <Link to="/posts">Explore Posts</Link>
         </li>
-        {token && (
-          <button type="button" onClick={onLogout}>
+        {/* <li>
+          <Link to="/login">Login</Link>
+        </li> */}
+        {token ? (
+          <button className="logout-btn" type="link-button" onClick={onLogout}>
             Log Out
           </button>
+        ) : (
+          <li id="navbar-links">
+            <Link to="/login">Login</Link>
+          </li>
         )}
       </ul>
     </div>

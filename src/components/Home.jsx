@@ -16,9 +16,13 @@ export default function Public() {
       <header>
         <h1>Welcome to Christina's List!</h1>
         <p>An online store where you can sell and purchase hidden treasures!</p>
-        <button onClick={handleRegisterClick}>Register</button>
+        <button className="link-btn" onClick={handleRegisterClick}>
+          Register
+        </button>
         <br />
-        <button onClick={handleLoginClick}>Log In</button>
+        <button className="link-btn" onClick={handleLoginClick}>
+          Log In
+        </button>
       </header>
       <main></main>
     </section>

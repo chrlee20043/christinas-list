@@ -55,7 +55,7 @@ export default function Login({ token }) {
 
   return (
     <>
-      <div className="auth-form-container">
+      <div className="login-form-container">
         {successMessage || error ? (
           <p className={successMessage ? "success" : "error"}>
             {successMessage || error}
@@ -83,7 +83,9 @@ export default function Login({ token }) {
             name="password"
             required
           />
-          <button type="submit">Log in</button>
+          <button className="form-btn" type="submit">
+            Log in
+          </button>
         </form>
         <button
           type="button"

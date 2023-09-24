@@ -89,72 +89,80 @@ export default function EditPost({ id, onUpdateEditedPost, setEditingPostId }) {
   return (
     <>
       {isFormOpen ? (
-        <form onSubmit={handleSubmit} className="post-form-container">
-          {error && <p>{error}</p>}
-          <h4>Edit Post</h4>
+        <div className="post-form-container">
+          <form onSubmit={handleSubmit} className="post-form">
+            {error && <p>{error}</p>}
+            <h4>Edit Post</h4>
 
-          <label htmlFor="title">Title</label>
-          <input
-            value={title}
-            type="text"
-            name="title"
-            placeholder="Title"
-            onChange={(event) => setTitle(event.target.value)}
-          />
-
-          <label htmlFor="description">Description</label>
-          <input
-            value={description}
-            type="text"
-            name="description"
-            placeholder="Description"
-            onChange={(event) => setDescription(event.target.value)}
-          />
-
-          <label htmlFor="price">Price</label>
-          <input
-            value={price}
-            type="text"
-            name="price"
-            placeholder="Price"
-            onChange={(event) => setPrice(event.target.value)}
-          />
-          <label htmlFor="location">Location</label>
-          <input
-            value={location}
-            type="text"
-            name="location"
-            placeholder="Location"
-            onChange={(event) => setLocation(event.target.value)}
-          />
-          <fieldset>
-            <legend>Are you willing to deliver?</legend>
-            <label className="delivery-button" htmlFor="delivery-yes">
-              Yes
-            </label>
+            <label htmlFor="title">Title</label>
             <input
-              value={true}
-              type="radio"
-              name="Deliver"
-              onChange={(event) => setWillDeliver(event.target.value)}
-              checked
+              value={title}
+              type="text"
+              name="title"
+              placeholder="Title"
+              onChange={(event) => setTitle(event.target.value)}
             />
-            <label className="delivery-button" htmlFor="delivery-no">
-              No
-            </label>
-            <input
-              value={false}
-              type="radio"
-              name="Deliver"
-              onChange={(event) => setWillDeliver(event.target.value)}
-            />
-          </fieldset>
 
-          <button type="submit">Submit</button>
-          <button onClick={() => setEditingPostId(null)} type="button">
-            Cancel
-          </button>
-        </form>
+            <label htmlFor="description">Description</label>
+            <input
+              value={description}
+              type="text"
+              name="description"
+              placeholder="Description"
+              onChange={(event) => setDescription(event.target.value)}
+            />
+
+            <label htmlFor="price">Price</label>
+            <input
+              value={price}
+              type="text"
+              name="price"
+              placeholder="Price"
+              onChange={(event) => setPrice(event.target.value)}
+            />
+            <label htmlFor="location">Location</label>
+            <input
+              value={location}
+              type="text"
+              name="location"
+              placeholder="Location"
+              onChange={(event) => setLocation(event.target.value)}
+            />
+            <fieldset>
+              <legend>Are you willing to deliver?</legend>
+              <label className="delivery-button" htmlFor="delivery-yes">
+                Yes
+              </label>
+              <input
+                value={true}
+                type="radio"
+                name="Deliver"
+                onChange={(event) => setWillDeliver(event.target.value)}
+                checked
+              />
+              <label className="delivery-button" htmlFor="delivery-no">
+                No
+              </label>
+              <input
+                value={false}
+                type="radio"
+                name="Deliver"
+                onChange={(event) => setWillDeliver(event.target.value)}
+              />
+            </fieldset>
+
+            <button className="form-btn" type="submit">
+              Submit
+            </button>
+            <button
+              className="form-btn"
+              onClick={() => setEditingPostId(null)}
+              type="button"
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
       ) : (
         <></>
       )}

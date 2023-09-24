@@ -93,7 +93,9 @@ export default function Register() {
           placeholder="********"
           required
         />
-        <button type="submit">Register</button>
+        <button className="form-btn" type="submit">
+          Register
+        </button>
       </form>
 
       <button className="link-btn" onClick={() => navigate("/login")}>

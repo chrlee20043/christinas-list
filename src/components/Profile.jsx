@@ -67,11 +67,15 @@ export default function Profile({ posts, token }) {
       {authToken && <h1>Welcome {user}!</h1>}
       <p>Browse our collection!</p>
       <p>
-        <button onClick={() => navigate("/posts")}>See All Posts</button>
+        <button className="link-btn" onClick={() => navigate("/posts")}>
+          See All Posts
+        </button>
       </p>
       <br />
       <p>
-        <button onClick={() => navigate("/newpost")}>Submit New Post</button>
+        <button className="link-btn" onClick={() => navigate("/newpost")}>
+          Submit New Post
+        </button>
       </p>
 
       <div id="my-post-container">
@@ -85,21 +89,25 @@ export default function Profile({ posts, token }) {
                 <h3>{post.title}</h3>
                 {isOpen && (
                   <div className="expanded-content">
-                    <p>{post.description}</p>
-                    <p>{post.price}</p>
-                    <p>{post.location}</p>
-                    <p>{post?.willDeliver ? "Yes" : "No"}</p>
+                    <p>Description: {post.description}</p>
+                    <p>Price: {post.price}</p>
+                    <p>Location: {post.location}</p>
+                    <p>Deliver? {post?.willDeliver ? "Yes" : "No"}</p>
                   </div>
                 )}
                 <div className="buttons">
-                  <button className="details-button" onClick={handleDetails}>
+                  <button className="form-btn" onClick={handleDetails}>
                     {isOpen ? "See Less" : "See Details"}
                   </button>
-                  <button onClick={() => handleDelete(post._id, authToken)}>
+                  <button
+                    className="form-btn"
+                    onClick={() => handleDelete(post._id, authToken)}
+                  >
                     Delete me
                   </button>
 
                   <button
+                    className="form-btn"
                     onClick={() =>
                       setEditingPostId(
                         editingPostId === post._id ? null : post._id
@@ -124,7 +132,7 @@ export default function Profile({ posts, token }) {
           })}
 
         <div id="my-messages">
-          <h2>My Messages:</h2>
+          <h2>My Sent Messages:</h2>
           {userMessages.map((message) => {
             return (
               <div className="message-card" key={message._id}>
