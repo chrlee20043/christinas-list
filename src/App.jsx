@@ -14,7 +14,6 @@ import Profile from "./components/Profile";
 function App() {
   const dispatch = useDispatch();
   const token = useSelector(selectCurrentToken);
-  // const authToken = localStorage.getItem("authToken");
 
   useEffect(() => {
     if (token) {

@@ -8,6 +8,7 @@ import { myData, deletePost } from "../API";
 export default function Profile({ posts, token }) {
   const [userPosts, setUserPosts] = useState([]);
   const [userMessages, setUserMessages] = useState([]);
+  const [profileUser, setProfileUser] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null);
   const [editingPostId, setEditingPostId] = useState(null);
@@ -28,6 +29,7 @@ export default function Profile({ posts, token }) {
         // console.log("Response from myData API:", myAPIData);
         setUserPosts(myAPIData.data.posts || []);
         setUserMessages(myAPIData.data.messages || []);
+        setProfileUser(myAPIData.data.username);
       } catch (error) {
         setError("An error occurred while fetching user data");
         console.error(error);
@@ -66,7 +68,7 @@ export default function Profile({ posts, token }) {
 
   return (
     <section className="welcome">
-      {token && <h1>Welcome {user}!</h1>}
+      {token && <h1>Welcome {profileUser}!</h1>}
       <p>Browse our collection!</p>
       <p>
         <button className="link-btn" onClick={() => navigate("/posts")}>
@@ -105,7 +107,7 @@ export default function Profile({ posts, token }) {
                     className="form-btn"
                     onClick={() => handleDelete(post._id, token)}
                   >
-                    Delete me
+                    Delete
                   </button>
 
                   <button
