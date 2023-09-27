@@ -68,7 +68,7 @@ export default function EditPost({ id, onUpdateEditedPost, setEditingPostId }) {
         updatedPost.willDeliver,
         authToken
       );
-      //   console.log("edited post:", editedPost);
+      console.log("updated price: ", updatedPost.price);
 
       setTitle(updatedPost.title);
       setDescription(updatedPost.description);

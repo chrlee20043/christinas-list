@@ -1,21 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 import { postMessage } from "../API";
 
 export default function SinglePost({ post, postId, token }) {
   const [isOpen, setIsOpen] = useState(false);
-
   const [content, setContent] = useState("");
-
-  const authToken = useSelector(selectCurrentToken);
-  const user = useSelector(selectCurrentUser);
-
-  const navigate = useNavigate();
-
-  // console.log("POST ID:", postId);
 
   async function handleClick() {
     setIsOpen(!isOpen);
@@ -32,7 +22,7 @@ export default function SinglePost({ post, postId, token }) {
     };
 
     try {
-      const response = await postMessage(postId, authToken, postObj);
+      const response = await postMessage(postId, token, postObj);
       console.log("Response from postMessage API:", response);
 
       setContent("");
@@ -69,7 +59,9 @@ export default function SinglePost({ post, postId, token }) {
               </div>
             </div>
 
-            <button type="submit">Submit</button>
+            <button className="form-btn" type="submit">
+              Submit
+            </button>
           </form>
         )}
       </div>

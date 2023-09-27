@@ -1,10 +1,10 @@
-const COHORT_NAME = "2306-GHP-ET-WEB-FT-SF";
-const API_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../Redux/authSlice";
+
+const COHORT_NAME = "2306-GHP-ET-WEB-FT-SF";
+const API_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
 
 export default function Register() {
   const [username, setUsername] = useState("");

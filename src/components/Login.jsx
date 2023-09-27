@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../Redux/authSlice";
-import { selectCurrentToken } from "../Redux/authSlice";
 
 const COHORT_NAME = "2306-GHP-ET-WEB-FT-SF";
 const API_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;

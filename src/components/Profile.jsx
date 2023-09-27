@@ -15,19 +15,17 @@ export default function Profile({ posts, token }) {
   const navigate = useNavigate();
 
   const user = useSelector(selectCurrentUser);
-  const authToken = useSelector(selectCurrentToken);
 
   useEffect(() => {
     async function fetchUserData() {
-      if (!authToken) {
+      if (!token) {
         setError("No authentication token available");
         return;
       }
 
       try {
-        const myAPIData = await myData(authToken);
+        const myAPIData = await myData(token);
         // console.log("Response from myData API:", myAPIData);
-
         setUserPosts(myAPIData.data.posts || []);
         setUserMessages(myAPIData.data.messages || []);
       } catch (error) {
@@ -37,12 +35,11 @@ export default function Profile({ posts, token }) {
     }
 
     fetchUserData();
-  }, [authToken]);
+  }, [token]);
 
   async function updateEditedPost(postId, editedData) {
-    console.log("edited data: ", editedData);
+    console.log("edited data:", editedData);
     setUserPosts((originalPosts) => {
-      console.log("PROFILE POSTS:", originalPosts);
       return originalPosts.map((post) =>
         post._id === postId ? { ...post, ...editedData } : post
       );
@@ -53,10 +50,15 @@ export default function Profile({ posts, token }) {
     setIsOpen(!isOpen);
   }
 
-  async function handleDelete(id, authToken) {
+  async function handleDelete(id, token) {
     try {
-      const result = await deletePost(id, authToken);
+      const result = await deletePost(id, token);
       console.log(result);
+      setUserPosts((prevUserPosts) =>
+        prevUserPosts.filter((post) => post._id !== id)
+      );
+
+      navigate("./", { replace: true });
     } catch (error) {
       console.error(error);
     }
@@ -64,7 +66,7 @@ export default function Profile({ posts, token }) {
 
   return (
     <section className="welcome">
-      {authToken && <h1>Welcome {user}!</h1>}
+      {token && <h1>Welcome {user}!</h1>}
       <p>Browse our collection!</p>
       <p>
         <button className="link-btn" onClick={() => navigate("/posts")}>
@@ -101,7 +103,7 @@ export default function Profile({ posts, token }) {
                   </button>
                   <button
                     className="form-btn"
-                    onClick={() => handleDelete(post._id, authToken)}
+                    onClick={() => handleDelete(post._id, token)}
                   >
                     Delete me
                   </button>
@@ -119,7 +121,7 @@ export default function Profile({ posts, token }) {
                   {editingPostId === post._id && (
                     <EditPost
                       id={post._id}
-                      token={authToken}
+                      token={token}
                       posts={posts}
                       post={post}
                       onUpdateEditedPost={updateEditedPost}

@@ -1,13 +1,13 @@
 // Form where user can add new post
 
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { createPost } from "../API";
-import { selectCurrentToken, selectCurrentUser } from "../Redux/authSlice";
+import { selectCurrentUser } from "../Redux/authSlice";
 
-export default function NewPostForm({ post, setPost }) {
+export default function NewPostForm({ post, setPost, token }) {
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -16,8 +16,6 @@ export default function NewPostForm({ post, setPost }) {
   const [willDeliver, setWillDeliver] = useState(null);
   const [error, setError] = useState(null);
 
-  const authToken = useSelector(selectCurrentToken);
-  // console.log(authToken);
   const user = useSelector(selectCurrentUser);
 
   const navigate = useNavigate();
@@ -30,16 +28,13 @@ export default function NewPostForm({ post, setPost }) {
       description,
       price,
       willDeliver,
-      authToken
+      token
     );
 
     console.log(response.data.post);
     if (response.success) {
       console.log("New Post: ", response.data.post);
       navigate("/profile");
-
-      // const newPosts = [...post, response.data.post];
-      // setPost(newPosts);
     } else {
       setError("Unauthorized token. Please register or log in");
     }
@@ -98,7 +93,7 @@ export default function NewPostForm({ post, setPost }) {
           Yes
         </label>
         <input
-          value={true}
+          value={willDeliver}
           type="radio"
           name="Deliver"
           onChange={(event) => setWillDeliver(event.target.value)}
@@ -108,7 +103,7 @@ export default function NewPostForm({ post, setPost }) {
           No
         </label>
         <input
-          value={false}
+          value={!willDeliver}
           type="radio"
           name="Deliver"
           onChange={(event) => setWillDeliver(event.target.value)}

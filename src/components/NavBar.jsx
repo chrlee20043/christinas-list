@@ -18,7 +18,7 @@ export default function NavBar() {
 
   return (
     <div id="navbar">
-      <h1 id="navbar-title">Christina's Closet</h1>
+      <h1 id="navbar-title">Christina's List</h1>
       <ul id="navbar-links">
         <li>
           <Link to="/">Home</Link>
@@ -33,11 +33,11 @@ export default function NavBar() {
           <Link to="/login">Login</Link>
         </li> */}
         {token ? (
-          <button className="logout-btn" type="link-button" onClick={onLogout}>
+          <button className="auth-btn" type="link-button" onClick={onLogout}>
             Log Out
           </button>
         ) : (
-          <li id="navbar-links">
+          <li className="auth-btn">
             <Link to="/login">Login</Link>
           </li>
         )}
