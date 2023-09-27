@@ -43,73 +43,75 @@ export default function NewPostForm({ post, setPost, token }) {
   //name, title, description, price
   return (
     <form onSubmit={handleSubmit} className="post-form-container">
-      {error && <p>{error}</p>}
-      <h4>Create New Post</h4>
-      <label htmlFor="name">Seller Name</label>
-      <input
-        value={user}
-        type="text"
-        name="name"
-        placeholder="Name"
-        onChange={(event) => setName(event.target.value)}
-      />
-      <label htmlFor="title">Title</label>
-      <input
-        value={title}
-        type="text"
-        name="title"
-        placeholder="Title"
-        onChange={(event) => setTitle(event.target.value)}
-      />
-
-      <label htmlFor="description">Description</label>
-      <input
-        value={description}
-        type="text"
-        name="description"
-        placeholder="Description"
-        onChange={(event) => setDescription(event.target.value)}
-      />
-
-      <label htmlFor="price">Price</label>
-      <input
-        value={price}
-        type="text"
-        name="price"
-        placeholder="Price"
-        onChange={(event) => setPrice(event.target.value)}
-      />
-      <label htmlFor="location">Location</label>
-      <input
-        value={location}
-        type="text"
-        name="location"
-        placeholder="Location"
-        onChange={(event) => setLocation(event.target.value)}
-      />
-      <fieldset>
-        <legend>Are you willing to deliver?</legend>
-        <label className="delivery-button" htmlFor="delivery-yes">
-          Yes
-        </label>
+      <div className="post-form">
+        {error && <p>{error}</p>}
+        <h4>Create New Post</h4>
+        <label htmlFor="name">Seller Name</label>
         <input
-          value={willDeliver}
-          type="radio"
-          name="Deliver"
-          onChange={(event) => setWillDeliver(event.target.value)}
-          checked
+          value={user}
+          type="text"
+          name="name"
+          placeholder="Name"
+          onChange={(event) => setName(event.target.value)}
         />
-        <label className="delivery-button" htmlFor="delivery-no">
-          No
-        </label>
+        <label htmlFor="title">Title</label>
         <input
-          value={!willDeliver}
-          type="radio"
-          name="Deliver"
-          onChange={(event) => setWillDeliver(event.target.value)}
+          value={title}
+          type="text"
+          name="title"
+          placeholder="Title"
+          onChange={(event) => setTitle(event.target.value)}
         />
-      </fieldset>
-      <button type="submit">Submit</button>
+
+        <label htmlFor="description">Description</label>
+        <input
+          value={description}
+          type="text"
+          name="description"
+          placeholder="Description"
+          onChange={(event) => setDescription(event.target.value)}
+        />
+
+        <label htmlFor="price">Price</label>
+        <input
+          value={price}
+          type="text"
+          name="price"
+          placeholder="Price"
+          onChange={(event) => setPrice(event.target.value)}
+        />
+        <label htmlFor="location">Location</label>
+        <input
+          value={location}
+          type="text"
+          name="location"
+          placeholder="Location"
+          onChange={(event) => setLocation(event.target.value)}
+        />
+        <fieldset>
+          <legend>Are you willing to deliver?</legend>
+          <label className="delivery-button" htmlFor="delivery-yes">
+            Yes
+          </label>
+          <input
+            value={willDeliver}
+            type="radio"
+            name="Deliver"
+            onChange={(event) => setWillDeliver(event.target.value)}
+            checked
+          />
+          <label className="delivery-button" htmlFor="delivery-no">
+            No
+          </label>
+          <input
+            value={!willDeliver}
+            type="radio"
+            name="Deliver"
+            onChange={(event) => setWillDeliver(event.target.value)}
+          />
+        </fieldset>
+        <button type="submit">Submit</button>
+      </div>
     </form>
   );
 }
