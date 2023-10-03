@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
 import EditPost from "./EditPost";
 import { myData, deletePost } from "../API";
 
@@ -14,8 +12,6 @@ export default function Profile({ posts, token }) {
   const [editingPostId, setEditingPostId] = useState(null);
 
   const navigate = useNavigate();
-
-  const user = useSelector(selectCurrentUser);
 
   useEffect(() => {
     async function fetchUserData() {

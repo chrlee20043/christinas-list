@@ -37,7 +37,7 @@ export default function NavBar() {
             Log Out
           </button>
         ) : (
-          <li className="auth-btn">
+          <li type="link-button">
             <Link to="/login">Login</Link>
           </li>
         )}

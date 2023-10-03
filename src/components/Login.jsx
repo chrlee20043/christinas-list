@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCredentials } from "../Redux/authSlice";
 
 const COHORT_NAME = "2306-GHP-ET-WEB-FT-SF";
 const API_URL = `https://strangers-things.herokuapp.com/api/${COHORT_NAME}`;
 
-export default function Login({ token }) {
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [successMessage, setSuccessMessage] = useState(null);
@@ -37,10 +37,10 @@ export default function Login({ token }) {
         setError("");
         dispatch(
           setCredentials({
-            user: username,
             token: result.data.token,
           })
         );
+        console.log("result", result);
         navigate("/profile");
       } else {
         setSuccessMessage("");

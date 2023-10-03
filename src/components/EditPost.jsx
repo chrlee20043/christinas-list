@@ -1,12 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import { selectCurrentUser, selectCurrentToken } from "../Redux/authSlice";
-// import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { editPost, myData } from "../API";
 
-export default function EditPost({ id, onUpdateEditedPost, setEditingPostId }) {
+export default function EditPost({
+  id,
+  onUpdateEditedPost,
+  setEditingPostId,
+  token,
+}) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -15,15 +18,12 @@ export default function EditPost({ id, onUpdateEditedPost, setEditingPostId }) {
   const [error, setError] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(true);
 
-  const user = useSelector(selectCurrentUser);
-  const authToken = useSelector(selectCurrentToken);
-
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const editPostData = await myData(authToken);
+        const editPostData = await myData(token);
 
         const postsData = editPostData.data.posts;
 
@@ -44,7 +44,7 @@ export default function EditPost({ id, onUpdateEditedPost, setEditingPostId }) {
     };
 
     fetchPost();
-  }, [id, authToken]);
+  }, [id, token]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,7 +66,7 @@ export default function EditPost({ id, onUpdateEditedPost, setEditingPostId }) {
         updatedPost.price,
         updatedPost.location,
         updatedPost.willDeliver,
-        authToken
+        token
       );
       console.log("updated price: ", updatedPost.price);
 

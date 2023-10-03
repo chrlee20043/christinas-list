@@ -36,7 +36,9 @@ export default function Register() {
         if (result.success) {
           // Dispatch the setCredentials action with user and token
           dispatch(
-            setCredentials({ user: username, token: result.data.token })
+            setCredentials({
+              token: result.data.token,
+            })
           );
           setError(null);
           setSuccessMessage(

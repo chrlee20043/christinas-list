@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setCredentials, selectCurrentToken } from "./Redux/authSlice";
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "./Redux/authSlice";
 import "./index.css";
 import AllPosts from "./components/AllPosts";
 import Home from "./components/Home";
@@ -12,14 +11,7 @@ import NewPostForm from "./components/NewPostForm";
 import Profile from "./components/Profile";
 
 function App() {
-  const dispatch = useDispatch();
   const token = useSelector(selectCurrentToken);
-
-  useEffect(() => {
-    if (token) {
-      dispatch(setCredentials({ token: token }));
-    }
-  }, [token, dispatch]);
 
   return (
     <>
@@ -30,8 +22,8 @@ function App() {
       <div id="routeDiv">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login token={token} />} />
-          <Route path="/register" element={<Register token={token} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
           <Route path="/profile" element={<Profile token={token} />} />
 

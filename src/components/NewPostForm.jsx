@@ -1,11 +1,7 @@
-// Form where user can add new post
-
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { createPost } from "../API";
-import { selectCurrentUser } from "../Redux/authSlice";
 
 export default function NewPostForm({ post, setPost, token }) {
   const [name, setName] = useState("");
@@ -15,8 +11,6 @@ export default function NewPostForm({ post, setPost, token }) {
   const [location, setLocation] = useState("");
   const [willDeliver, setWillDeliver] = useState(null);
   const [error, setError] = useState(null);
-
-  const user = useSelector(selectCurrentUser);
 
   const navigate = useNavigate();
 
@@ -48,7 +42,7 @@ export default function NewPostForm({ post, setPost, token }) {
         <h4>Create New Post</h4>
         <label htmlFor="name">Seller Name</label>
         <input
-          value={user}
+          value={name}
           type="text"
           name="name"
           placeholder="Name"
