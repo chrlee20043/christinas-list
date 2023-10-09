@@ -38,14 +38,16 @@ export default function AllPosts({ token }) {
           />
         </label>
       </div>
-      {postsToDisplay.map((post) => (
-        <SinglePost
-          key={post._id}
-          post={post}
-          postId={post._id}
-          token={token}
-        />
-      ))}
+      <div className="all-posts">
+        {postsToDisplay.map((post) => (
+          <SinglePost
+            key={post._id}
+            post={post}
+            postId={post._id}
+            token={token}
+          />
+        ))}
+      </div>
     </div>
   );
 }

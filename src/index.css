@@ -143,7 +143,7 @@ background-image: url("backgroundimg.jpg")
   border: solid 2px rgb(69, 2, 69);
 }
 
-#post-card {
+/* #post-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -153,7 +153,32 @@ background-image: url("backgroundimg.jpg")
   margin: auto;
   width: 20em;
   padding: 10px;
+} */
+
+#post-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  /* Add margin between each museum card */
+  border: 1px solid #ddd;
+  background-color: #fff;
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Box shadow for a subtle elevation effect */
+  transition: transform 0.2s;
+  /* Add a smooth transition effect */
+  list-style: none;
 }
+
+.all-posts {
+  display: grid;
+  grid-column-gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
 
 
 #single-btn {

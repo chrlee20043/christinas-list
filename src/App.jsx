@@ -7,7 +7,7 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import NavBar from "./components/NavBar";
-import NewPostForm from "./components/NewPostForm";
+// import NewPostForm from "./components/NewPostForm";
 import Profile from "./components/Profile";
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
 
           <Route path="/posts" element={<AllPosts token={token} />} />
 
-          <Route path="/newpost" element={<NewPostForm token={token} />} />
+          {/* <Route path="/newpost" element={<NewPostForm token={token} />} /> */}
         </Routes>
       </div>
     </>

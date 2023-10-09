@@ -3,13 +3,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createPost } from "../API";
 
-export default function NewPostForm({ post, setPost, token }) {
-  const [name, setName] = useState("");
+export default function NewPostForm({ token, onNewPost, profileUser }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [location, setLocation] = useState("");
   const [willDeliver, setWillDeliver] = useState(null);
+  const [isPostCreated, setIsPostCreated] = useState(false);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -27,8 +27,19 @@ export default function NewPostForm({ post, setPost, token }) {
 
     console.log(response.data.post);
     if (response.success) {
+      const newPost = response.data.post;
       console.log("New Post: ", response.data.post);
-      navigate("/profile");
+
+      navigate("./", { replace: true });
+      onNewPost(newPost);
+      setIsPostCreated(true);
+
+      // reset form
+      setTitle("");
+      setDescription("");
+      setPrice("");
+      setLocation("");
+      setWillDeliver(null);
     } else {
       setError("Unauthorized token. Please register or log in");
     }
@@ -40,14 +51,8 @@ export default function NewPostForm({ post, setPost, token }) {
       <div className="post-form">
         {error && <p>{error}</p>}
         <h4>Create New Post</h4>
-        <label htmlFor="name">Seller Name</label>
-        <input
-          value={name}
-          type="text"
-          name="name"
-          placeholder="Name"
-          onChange={(event) => setName(event.target.value)}
-        />
+        <label htmlFor="name">My Username</label>
+        <input value={profileUser} type="text" name="name" disabled />
         <label htmlFor="title">Title</label>
         <input
           value={title}
@@ -105,6 +110,11 @@ export default function NewPostForm({ post, setPost, token }) {
           />
         </fieldset>
         <button type="submit">Submit</button>
+        <div>
+          {isPostCreated && (
+            <p className="success-message">Post created successfully!</p>
+          )}
+        </div>
       </div>
     </form>
   );

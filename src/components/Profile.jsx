@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EditPost from "./EditPost";
+import NewPostForm from "./NewPostForm";
 import { myData, deletePost } from "../API";
 
 export default function Profile({ posts, token }) {
@@ -8,8 +9,9 @@ export default function Profile({ posts, token }) {
   const [userMessages, setUserMessages] = useState([]);
   const [profileUser, setProfileUser] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [error, setError] = useState(null);
+  const [isNewPostFormOpen, setIsNewPostFormOpen] = useState(false);
   const [editingPostId, setEditingPostId] = useState(null);
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -35,6 +37,10 @@ export default function Profile({ posts, token }) {
     fetchUserData();
   }, [token]);
 
+  const handleNewPost = (newPost) => {
+    setUserPosts((prevUserPosts) => [newPost, ...prevUserPosts]);
+  };
+
   async function updateEditedPost(postId, editedData) {
     console.log("edited data:", editedData);
     setUserPosts((originalPosts) => {
@@ -47,6 +53,10 @@ export default function Profile({ posts, token }) {
   async function handleDetails() {
     setIsOpen(!isOpen);
   }
+
+  const toggleNewPostForm = () => {
+    setIsNewPostFormOpen(!isNewPostFormOpen);
+  };
 
   async function handleDelete(id, token) {
     try {
@@ -72,11 +82,17 @@ export default function Profile({ posts, token }) {
         </button>
       </p>
       <br />
-      <p>
-        <button className="link-btn" onClick={() => navigate("/newpost")}>
-          Submit New Post
-        </button>
-      </p>
+
+      <button className="link-btn" onClick={toggleNewPostForm}>
+        {isNewPostFormOpen ? "Cancel" : "Submit New Post"}
+      </button>
+      {isNewPostFormOpen && (
+        <NewPostForm
+          token={token}
+          onNewPost={handleNewPost}
+          profileUser={profileUser}
+        />
+      )}
 
       <div id="my-post-container">
         <h2>My Posts:</h2>
