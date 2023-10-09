@@ -101,11 +101,13 @@ async function editPost(
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        title,
-        description,
-        price,
-        location,
-        willDeliver,
+        post: {
+          title,
+          description,
+          price,
+          location,
+          willDeliver,
+        },
       }),
     });
     const result = await response.json();

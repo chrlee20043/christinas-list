@@ -93,7 +93,7 @@ export default function NewPostForm({ token, onNewPost, profileUser }) {
             Yes
           </label>
           <input
-            value={willDeliver}
+            value="true"
             type="radio"
             name="Deliver"
             onChange={(event) => setWillDeliver(event.target.value)}
@@ -103,7 +103,7 @@ export default function NewPostForm({ token, onNewPost, profileUser }) {
             No
           </label>
           <input
-            value={!willDeliver}
+            value="false"
             type="radio"
             name="Deliver"
             onChange={(event) => setWillDeliver(event.target.value)}

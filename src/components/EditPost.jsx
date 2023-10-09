@@ -1,20 +1,19 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { editPost, myData } from "../API";
 
 export default function EditPost({
-  id,
+  postId,
   onUpdateEditedPost,
   setEditingPostId,
   token,
 }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [location, setLocation] = useState("");
-  const [willDeliver, setWillDeliver] = useState(null);
+  const [newTitle, setNewTitle] = useState("");
+  const [newDescription, setNewDescription] = useState("");
+  const [newPrice, setNewPrice] = useState("");
+  const [newLocation, setNewLocation] = useState("");
+  const [newWillDeliver, setNewWillDeliver] = useState(false);
   const [error, setError] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(true);
 
@@ -27,15 +26,14 @@ export default function EditPost({
 
         const postsData = editPostData.data.posts;
 
-        const postToEdit = postsData.find((post) => post._id === id);
+        const postToEdit = postsData.find((post) => post._id === postId);
 
         if (postToEdit) {
-          // Set the state variables with the values from the existing post
-          setTitle(postToEdit.title);
-          setDescription(postToEdit.description);
-          setPrice(postToEdit.price);
-          setLocation(postToEdit.location);
-          setWillDeliver(postToEdit.willDeliver);
+          setNewTitle(postToEdit.title);
+          setNewDescription(postToEdit.description);
+          setNewPrice(postToEdit.price);
+          setNewLocation(postToEdit.location);
+          setNewWillDeliver(postToEdit.willDeliver);
         }
       } catch (error) {
         setError("An error occurred while fetching post data");
@@ -44,45 +42,27 @@ export default function EditPost({
     };
 
     fetchPost();
-  }, [id, token]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     async function updatePost() {
-      const updatedPost = {
-        title,
-        description,
-        price,
-        location,
-        willDeliver,
-      };
-      //   console.log("update post: ", updatedPost);
-
-      await editPost(
-        id,
-        updatedPost.title,
-        updatedPost.description,
-        updatedPost.price,
-        updatedPost.location,
-        updatedPost.willDeliver,
+      const updatedPost = await editPost(
+        postId,
+        newTitle,
+        newDescription,
+        newPrice,
+        newLocation,
+        newWillDeliver,
         token
       );
-      console.log("updated price: ", updatedPost.price);
+      navigate("./", { replace: true });
 
-      setTitle(updatedPost.title);
-      setDescription(updatedPost.description);
-      setPrice(updatedPost.price);
-      setLocation(updatedPost.location);
-      setWillDeliver(updatedPost.willDeliver);
-
-      onUpdateEditedPost(id, updatedPost);
-      console.log("id: ", id, "updated post: ", updatedPost);
+      onUpdateEditedPost(updatedPost, postId);
 
       setIsFormOpen(false);
-      //   console.log("my updated post: ", updatedPost);
     }
-
     updatePost();
   };
 
@@ -96,37 +76,37 @@ export default function EditPost({
 
             <label htmlFor="title">Title</label>
             <input
-              value={title}
+              value={newTitle}
               type="text"
               name="title"
               placeholder="Title"
-              onChange={(event) => setTitle(event.target.value)}
+              onChange={(event) => setNewTitle(event.target.value)}
             />
 
             <label htmlFor="description">Description</label>
             <input
-              value={description}
+              value={newDescription}
               type="text"
               name="description"
               placeholder="Description"
-              onChange={(event) => setDescription(event.target.value)}
+              onChange={(event) => setNewDescription(event.target.value)}
             />
 
             <label htmlFor="price">Price</label>
             <input
-              value={price}
+              value={newPrice}
               type="text"
               name="price"
               placeholder="Price"
-              onChange={(event) => setPrice(event.target.value)}
+              onChange={(event) => setNewPrice(event.target.value)}
             />
             <label htmlFor="location">Location</label>
             <input
-              value={location}
+              value={newLocation}
               type="text"
               name="location"
               placeholder="Location"
-              onChange={(event) => setLocation(event.target.value)}
+              onChange={(event) => setNewLocation(event.target.value)}
             />
             <fieldset>
               <legend>Are you willing to deliver?</legend>
@@ -134,20 +114,20 @@ export default function EditPost({
                 Yes
               </label>
               <input
-                value={true}
+                value="true"
                 type="radio"
                 name="Deliver"
-                onChange={(event) => setWillDeliver(event.target.value)}
+                onChange={(event) => setNewWillDeliver(event.target.value)}
                 checked
               />
               <label className="delivery-button" htmlFor="delivery-no">
                 No
               </label>
               <input
-                value={false}
+                value="false"
                 type="radio"
                 name="Deliver"
-                onChange={(event) => setWillDeliver(event.target.value)}
+                onChange={(event) => setNewWillDeliver(event.target.value)}
               />
             </fieldset>
 

@@ -4,7 +4,7 @@ import EditPost from "./EditPost";
 import NewPostForm from "./NewPostForm";
 import { myData, deletePost } from "../API";
 
-export default function Profile({ posts, token }) {
+export default function Profile({ token }) {
   const [userPosts, setUserPosts] = useState([]);
   const [userMessages, setUserMessages] = useState([]);
   const [profileUser, setProfileUser] = useState("");
@@ -26,6 +26,7 @@ export default function Profile({ posts, token }) {
         const myAPIData = await myData(token);
         // console.log("Response from myData API:", myAPIData);
         setUserPosts(myAPIData.data.posts || []);
+        console.log("myAPIdata", myAPIData.data.posts);
         setUserMessages(myAPIData.data.messages || []);
         setProfileUser(myAPIData.data.username);
       } catch (error) {
@@ -35,20 +36,24 @@ export default function Profile({ posts, token }) {
     }
 
     fetchUserData();
-  }, [token]);
+  }, []);
 
   const handleNewPost = (newPost) => {
     setUserPosts((prevUserPosts) => [newPost, ...prevUserPosts]);
+    setIsNewPostFormOpen(false);
   };
 
-  async function updateEditedPost(postId, editedData) {
-    console.log("edited data:", editedData);
+  const updateEditedPost = (updatedPost, postId) => {
+    console.log("postID:", postId);
+    console.log("Updated post data:", updatedPost);
+
     setUserPosts((originalPosts) => {
+      console.log(originalPosts);
       return originalPosts.map((post) =>
-        post._id === postId ? { ...post, ...editedData } : post
+        post._id === postId ? { ...post, ...updatedPost } : post
       );
     });
-  }
+  };
 
   async function handleDetails() {
     setIsOpen(!isOpen);
@@ -58,12 +63,12 @@ export default function Profile({ posts, token }) {
     setIsNewPostFormOpen(!isNewPostFormOpen);
   };
 
-  async function handleDelete(id, token) {
+  async function handleDelete(postId, token) {
     try {
-      const result = await deletePost(id, token);
+      const result = await deletePost(postId, token);
       console.log(result);
       setUserPosts((prevUserPosts) =>
-        prevUserPosts.filter((post) => post._id !== id)
+        prevUserPosts.filter((post) => post._id !== postId)
       );
 
       navigate("./", { replace: true });
@@ -134,10 +139,8 @@ export default function Profile({ posts, token }) {
                   </button>
                   {editingPostId === post._id && (
                     <EditPost
-                      id={post._id}
+                      postId={post._id}
                       token={token}
-                      posts={posts}
-                      post={post}
                       onUpdateEditedPost={updateEditedPost}
                       setEditingPostId={setEditingPostId}
                     />
