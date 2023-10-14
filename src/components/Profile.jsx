@@ -15,26 +15,26 @@ export default function Profile({ token }) {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchUserData() {
-      if (!token) {
-        setError("No authentication token available");
-        return;
-      }
-
-      try {
-        const myAPIData = await myData(token);
-        // console.log("Response from myData API:", myAPIData);
-        setUserPosts(myAPIData.data.posts || []);
-        console.log("myAPIdata", myAPIData.data.posts);
-        setUserMessages(myAPIData.data.messages || []);
-        setProfileUser(myAPIData.data.username);
-      } catch (error) {
-        setError("An error occurred while fetching user data");
-        console.error(error);
-      }
+  async function fetchUserData() {
+    if (!token) {
+      setError("No authentication token available");
+      return;
     }
 
+    try {
+      const myAPIData = await myData(token);
+      // console.log("Response from myData API:", myAPIData);
+      setUserPosts(myAPIData.data.posts || []);
+      console.log("myAPIdata", myAPIData.data.posts);
+      setUserMessages(myAPIData.data.messages || []);
+      setProfileUser(myAPIData.data.username);
+    } catch (error) {
+      setError("An error occurred while fetching user data");
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
     fetchUserData();
   }, []);
 
@@ -53,6 +53,7 @@ export default function Profile({ token }) {
         post._id === postId ? { ...post, ...updatedPost } : post
       );
     });
+    fetchUserData();
   };
 
   const handleDetails = (postId) => {
@@ -123,7 +124,7 @@ export default function Profile({ token }) {
                     className="form-btn"
                     onClick={() => handleDetails(post._id)}
                   >
-                    {isPostOpen ? "See Less" : "See Details"}
+                    {isPostOpen ? "See Less" : "See More"}
                   </button>
                   <button
                     className="form-btn"
@@ -146,7 +147,10 @@ export default function Profile({ token }) {
                     <EditPost
                       postId={post._id}
                       token={token}
-                      onUpdateEditedPost={updateEditedPost}
+                      onUpdateEditedPost={(updatedPost) => {
+                        updateEditedPost(updatedPost, post._id);
+                        fetchUserData();
+                      }}
                       setEditingPostId={setEditingPostId}
                     />
                   )}
