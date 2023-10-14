@@ -50,7 +50,7 @@ export default function NewPostForm({ token, onNewPost, profileUser }) {
     <form onSubmit={handleSubmit} className="post-form-container">
       <div className="post-form">
         {error && <p>{error}</p>}
-        <h4>Create New Post</h4>
+        <h4 className="new-post-title">Create New Post</h4>
         <label htmlFor="name">My Username</label>
         <input value={profileUser} type="text" name="name" disabled />
         <label htmlFor="title">Title</label>
@@ -63,13 +63,14 @@ export default function NewPostForm({ token, onNewPost, profileUser }) {
         />
 
         <label htmlFor="description">Description</label>
-        <input
+        <textarea
+          className="new-description"
           value={description}
           type="text"
           name="description"
           placeholder="Description"
           onChange={(event) => setDescription(event.target.value)}
-        />
+        ></textarea>
 
         <label htmlFor="price">Price</label>
         <input
@@ -87,8 +88,8 @@ export default function NewPostForm({ token, onNewPost, profileUser }) {
           placeholder="Location"
           onChange={(event) => setLocation(event.target.value)}
         />
-        <fieldset>
-          <legend>Are you willing to deliver?</legend>
+        <div>
+          <legend>Delivery?</legend>
           <label className="delivery-button" htmlFor="delivery-yes">
             Yes
           </label>
@@ -108,7 +109,7 @@ export default function NewPostForm({ token, onNewPost, profileUser }) {
             name="Deliver"
             onChange={(event) => setWillDeliver(event.target.value)}
           />
-        </fieldset>
+        </div>
         <button className="link-btn" type="submit">
           Submit
         </button>

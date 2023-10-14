@@ -79,14 +79,14 @@ export default function Profile({ token }) {
   }
 
   return (
-    <section className="welcome">
-      {token && <h1>Welcome {profileUser}!</h1>}
-      <p>Browse our collection!</p>
+    <section className="profile-page">
+      {token && <h1 className="welcome">Welcome {profileUser}!</h1>}
+      {/* <p>Browse our collection!</p>
       <p>
         <button className="link-btn" onClick={() => navigate("/posts")}>
           See All Posts
         </button>
-      </p>
+      </p> */}
       <br />
 
       <button className="link-btn" onClick={toggleNewPostForm}>
