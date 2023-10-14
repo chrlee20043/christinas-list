@@ -8,7 +8,7 @@ export default function Profile({ token }) {
   const [userPosts, setUserPosts] = useState([]);
   const [userMessages, setUserMessages] = useState([]);
   const [profileUser, setProfileUser] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+  const [openPostId, setOpenPostId] = useState(null);
   const [isNewPostFormOpen, setIsNewPostFormOpen] = useState(false);
   const [editingPostId, setEditingPostId] = useState(null);
   const [error, setError] = useState(null);
@@ -55,9 +55,9 @@ export default function Profile({ token }) {
     });
   };
 
-  async function handleDetails() {
-    setIsOpen(!isOpen);
-  }
+  const handleDetails = (postId) => {
+    setOpenPostId((prevId) => (prevId === postId ? null : postId));
+  };
 
   const toggleNewPostForm = () => {
     setIsNewPostFormOpen(!isNewPostFormOpen);
@@ -105,10 +105,12 @@ export default function Profile({ token }) {
         {userPosts
           .filter((post) => post.active === true)
           .map((post) => {
+            const isPostOpen = post._id === openPostId;
+
             return (
               <div key={post._id} className="my-single-post">
                 <h3>{post.title}</h3>
-                {isOpen && (
+                {isPostOpen && (
                   <div className="expanded-content">
                     <p>Description: {post.description}</p>
                     <p>Price: {post.price}</p>
@@ -117,8 +119,11 @@ export default function Profile({ token }) {
                   </div>
                 )}
                 <div className="buttons">
-                  <button className="form-btn" onClick={handleDetails}>
-                    {isOpen ? "See Less" : "See Details"}
+                  <button
+                    className="form-btn"
+                    onClick={() => handleDetails(post._id)}
+                  >
+                    {isPostOpen ? "See Less" : "See Details"}
                   </button>
                   <button
                     className="form-btn"

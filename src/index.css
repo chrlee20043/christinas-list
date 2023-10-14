@@ -23,7 +23,7 @@ Light Sky Blue: #A2D2FF
 body {
   /* background-color: #8EC5FC;
    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%); */
-background-image: url("backgroundimg.jpg")
+  background-image: url("backgroundimg.jpg")
 }
 
 #navbar-title {
@@ -143,18 +143,6 @@ background-image: url("backgroundimg.jpg")
   border: solid 2px rgb(69, 2, 69);
 }
 
-/* #post-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-  border-radius: 5px;
-  margin: auto;
-  width: 20em;
-  padding: 10px;
-} */
-
 #post-card {
   position: relative;
   display: flex;
@@ -177,6 +165,7 @@ background-image: url("backgroundimg.jpg")
   display: grid;
   grid-column-gap: 0.5rem;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+
 }
 
 
@@ -189,10 +178,19 @@ background-image: url("backgroundimg.jpg")
 
 }
 
-.post-form-container {
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
+.my-post-container {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent wrapping to the next row */
+  justify-content: flex-start; /* Start rendering posts from the left */
+  overflow-x: auto; /* Add horizontal scroll if needed */
+}
+
+.my-single-post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
   border-radius: 5px;
 }
 
@@ -204,6 +202,11 @@ background-image: url("backgroundimg.jpg")
   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
   border-radius: 5px;
   padding: 10px;
+}
+
+.post-form-container {
+  margin-top: 10px;
+
 }
 
 .delivery-button {
@@ -248,23 +251,6 @@ background-image: url("backgroundimg.jpg")
 
 
 .message-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-  border-radius: 5px;
-  margin: 10px;
-}
-
-#my-post-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.my-single-post {
   display: flex;
   flex-direction: column;
   justify-content: center;

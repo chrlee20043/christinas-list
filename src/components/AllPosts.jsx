@@ -26,6 +26,7 @@ export default function AllPosts({ token }) {
   const postsToDisplay = searchParam
     ? posts.filter((post) => post.title.toLowerCase().includes(searchParam))
     : posts;
+
   return (
     <div>
       <div id="search-bar">

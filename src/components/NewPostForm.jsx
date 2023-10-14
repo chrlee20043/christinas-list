@@ -109,7 +109,9 @@ export default function NewPostForm({ token, onNewPost, profileUser }) {
             onChange={(event) => setWillDeliver(event.target.value)}
           />
         </fieldset>
-        <button type="submit">Submit</button>
+        <button className="link-btn" type="submit">
+          Submit
+        </button>
         <div>
           {isPostCreated && (
             <p className="success-message">Post created successfully!</p>

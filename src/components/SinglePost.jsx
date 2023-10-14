@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { postMessage, myData } from "../API";
 
 export default function SinglePost({ post, postId, token }) {
@@ -63,11 +62,11 @@ export default function SinglePost({ post, postId, token }) {
         <p>Price: {post.price}</p>
         <p>Deliver? {post?.willDeliver ? "Yes" : "No"}</p>
 
-        {/* <button className="form-btn" onClick={handleClick}>
+        <button className="form-btn" onClick={handleClick}>
           {isOpen ? "Cancel" : "Send Message"}
-        </button> */}
+        </button>
 
-        {username && username !== post.author.username ? (
+        {isOpen && username && username !== post.author.username ? (
           <form onSubmit={handleSubmit}>
             <h2>Message Seller</h2>
             <div className="form-row">
@@ -92,33 +91,4 @@ export default function SinglePost({ post, postId, token }) {
       </div>
     </div>
   );
-}
-
-{
-  /* //  {isOpen && (  */
-}
-{
-  /* // <form onSubmit={handleSubmit}>
-          //   <h2>Message Seller</h2>
-          //   <div className="form-row">
-          //     <div className="col">
-          //       <input */
-}
-{
-  /* //         type="text"
-          //         className="form-control"
-          //         placeholder="Message"
-          //         value={content}
-          //         onChange={(event) => setContent(event.target.value)}
-          //       />
-          //     </div>
-          //   </div> */
-}
-
-{
-  /* //   <button className="form-btn" type="submit">
-          //     Submit
-          //   </button>
-          // </form>
-        // )}} */
 }
