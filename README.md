@@ -1,8 +1,9 @@
-# React + Vite
+**Welcome to Christina's List! A web app where users can sell and purchase goods.**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+LINK TO DEPLOYED APP 
 
-Currently, two official plugins are available:
+**Key Features**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Create posts to sell unwanted items
+Edit and delete user created posts
+Message sellers to inquire about items for sale 
