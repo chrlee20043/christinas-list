@@ -23,7 +23,7 @@ Light Sky Blue: #A2D2FF
 body {
   /* background-color: #8EC5FC;
    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%); */
-  background-image: url("backgroundimg.jpg")
+  background-image: url("/backgroundimg.jpg")
 }
 
 #navbar-title {
