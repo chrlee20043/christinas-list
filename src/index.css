@@ -4,11 +4,13 @@ Light Pink: #FFC8DD
 Carnation Pink: #FFAFCC
 Light Blue: #BDE0FE
 Light Sky Blue: #A2D2FF
+Peach puff: peachpuff
 
 */
 
 * {
   font-family: Georgia, 'Times New Roman', Times, serif;
+  box-sizing: border-box;
 }
 
 #root {
@@ -256,13 +258,23 @@ width: 300px;
 }
 
 .login-form input {
-  margin: 1em;
+  margin: 1em 0;
+  padding: 1em;
+  outline: 0;
+  border-color: #FFC8DD;
+  border-width: 0 0 2px;
+  background: none;
 }
+
+.login-form input:focus {
+  border-color: peachpuff;
+ }
 
 .register-form-container {
   width: 50%;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 5px;
 }
 
 .register-form {
@@ -273,6 +285,19 @@ width: 300px;
   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
   border-radius: 5px;
 }
+
+ .register-form input {
+   margin: 1em 0;
+   padding: 1em;
+   outline: 0;
+   border-color: #FFC8DD;
+   border-width: 0 0 2px;
+   background: none;
+ }
+
+ .register-form input:focus {
+  border-color: peachpuff;
+ }
 
 
 .message-card {

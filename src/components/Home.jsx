@@ -7,21 +7,13 @@ export default function Public() {
     navigate("/register");
   };
 
-  const handleLoginClick = () => {
-    navigate("/login");
-  };
-
   return (
     <section className="public">
       <header>
         <h1>Welcome to Christina's List!</h1>
         <p>An online store where you can sell and purchase hidden treasures!</p>
         <button className="link-btn" onClick={handleRegisterClick}>
-          Register
-        </button>
-        <br />
-        <button className="link-btn" onClick={handleLoginClick}>
-          Log In
+          New here? Create an account.
         </button>
       </header>
       <main></main>

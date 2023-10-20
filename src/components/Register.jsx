@@ -66,7 +66,7 @@ export default function Register() {
         {/* Labels and inputs for form data */}
         <h1>Register</h1>
 
-        <label className="label">Email</label>
+        {/* <label className="label">Email</label> */}
         <input
           type="email"
           onChange={(e) => setEmail(e.target.value)}
@@ -76,7 +76,7 @@ export default function Register() {
           required
         />
 
-        <label className="label">Username</label>
+        {/* <label className="label">Username</label> */}
         <input
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -86,13 +86,13 @@ export default function Register() {
           required
         />
 
-        <label className="label">Password</label>
+        {/* <label className="label">Password</label> */}
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="input"
           type="password"
-          placeholder="********"
+          placeholder="Password"
           required
         />
         <button className="form-btn" type="submit">

@@ -61,8 +61,8 @@ export default function Login() {
           </p>
         ) : null}
         <form className="login-form" onSubmit={handleLogin}>
-          <h2>Login</h2>
-          <label className="label">Username</label>
+          <h1>Login</h1>
+          {/* <label className="label">Username</label> */}
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -72,12 +72,12 @@ export default function Login() {
             name="username"
             required
           />
-          <label className="label">Password</label>
+          {/* <label className="label">Password</label> */}
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
-            placeholder="********"
+            placeholder="Password"
             id="password"
             name="password"
             required
