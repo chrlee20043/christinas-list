@@ -172,7 +172,7 @@ export default function Profile({ token }) {
         </div>
       ) : (
         <div>
-          <button className="form-btn">
+          <button className="form-btn" onClick={() => navigate("/login")}>
             Please log in to view your profile
           </button>
         </div>

@@ -1,6 +1,6 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { postMessage, myData } from "../API";
+import MessagePopup from "./MessagePopup";
 
 export default function SinglePost({ post, postId, token }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,31 +62,24 @@ export default function SinglePost({ post, postId, token }) {
         <p>Price: {post.price}</p>
         <p>Deliver? {post?.willDeliver ? "Yes" : "No"}</p>
 
-        <button className="single-post-btn" onClick={handleClick}>
-          {isOpen ? "Cancel" : "Send Message"}
-        </button>
-
-        {isOpen && username && username !== post.author.username ? (
-          <form onSubmit={handleSubmit}>
-            <h2>Message Seller</h2>
-            <div className="form-row">
-              <div className="col">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Message"
-                  value={content}
-                  onChange={(event) => setContent(event.target.value)}
-                />
-              </div>
-            </div>
-
-            <button className="form-btn" type="submit">
-              Submit
+        {username !== post.author.username && (
+          <div>
+            <button
+              className="single-post-btn"
+              id="open-popup"
+              onClick={handleClick}
+            >
+              Send Message
+              {isOpen && (
+                <div>
+                  <MessagePopup
+                    onSend={handleSubmit}
+                    onClose={() => setIsOpen(false)}
+                  />
+                </div>
+              )}
             </button>
-          </form>
-        ) : (
-          <></>
+          </div>
         )}
       </div>
     </div>
