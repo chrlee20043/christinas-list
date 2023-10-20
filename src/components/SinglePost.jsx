@@ -62,7 +62,7 @@ export default function SinglePost({ post, postId, token }) {
         <p>Price: {post.price}</p>
         <p>Deliver? {post?.willDeliver ? "Yes" : "No"}</p>
 
-        <button className="form-btn" onClick={handleClick}>
+        <button className="single-post-btn" onClick={handleClick}>
           {isOpen ? "Cancel" : "Send Message"}
         </button>
 

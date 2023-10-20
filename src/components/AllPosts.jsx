@@ -30,10 +30,10 @@ export default function AllPosts({ token }) {
   return (
     <div>
       <div id="search-bar">
-        <label>
-          Search:{" "}
+        <label className="btn-search">
           <input
             type="text"
+            className="btn-search"
             placeholder="search"
             onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
           />
