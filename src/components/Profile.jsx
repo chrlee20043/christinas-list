@@ -159,9 +159,15 @@ export default function Profile({ token }) {
               {userMessages.map((message) => {
                 return (
                   <div className="message-card" key={message._id}>
-                    <p>Seller: {message.post.author.username}</p>
-                    <p>Description: {message.post.title}</p>
-                    <p>My Message: {message.content}</p>
+                    <p className="message-detail">
+                      Seller: {message.post.author.username}
+                    </p>
+                    <p className="message-detail">
+                      Description: {message.post.title}
+                    </p>
+                    <p className="message-detail">
+                      My Message: {message.content}
+                    </p>
                   </div>
                 );
               })}

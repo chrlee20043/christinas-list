@@ -1,52 +1,44 @@
-import React, { useState } from "react";
+import React from "react";
 
-export default function MessagePopup({ onSend, onClose }) {
-  const [content, setContent] = useState("");
-
-  const handleTextareaClick = (e) => {
-    e.stopPropagation();
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === " ") {
-      e.preventDefault();
-    }
-  };
-
-  const handleSubmit = (e) => {
-    if (!content.trim()) {
-      e.preventDefault();
-      return;
-    }
-    onSend(content, e);
-  };
+export default function MessagePopup({
+  onSubmit,
+  content,
+  setContent,
+  onClose,
+}) {
+  //   const handleSubmit = (e) => {
+  //     e.preventDefault();
+  //     onSubmit();
+  //   };
 
   return (
-    <div className="popup" onClick={onClose}>
-      <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-        <span className="close" onClick={onClose}>
-          &times;
-        </span>
-        <h2>Message Seller</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-row">
-            <div className="col">
-              <textarea
-                className="form-control"
-                placeholder="Message"
-                value={content}
-                onChange={(event) => setContent(event.target.value)}
-                onClick={handleTextareaClick}
-                onKeyPress={handleKeyPress}
-                rows="10"
-              ></textarea>
-            </div>
-          </div>
-
-          <button className="form-btn" type="submit">
-            Submit
+    <div className="message-card">
+      <div className="popup">
+        <div className="popup-content">
+          <button className="close" onClick={onClose}>
+            Close
           </button>
-        </form>
+          <form onSubmit={onSubmit}>
+            <h2>Message Seller</h2>
+            <div className="form-row">
+              <div className="col">
+                <textarea
+                  rows="10"
+                  cols="30"
+                  type="text"
+                  className="form-control"
+                  placeholder="Message"
+                  value={content}
+                  onChange={(event) => setContent(event.target.value)}
+                ></textarea>
+              </div>
+            </div>
+
+            <button className="form-btn" type="submit">
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

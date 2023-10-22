@@ -17,7 +17,6 @@ export default function SinglePost({ post, postId, token }) {
 
       try {
         const myAPIData = await myData(token);
-        // console.log("Response from myData API:", myAPIData);
         setUsername(myAPIData.data.username);
       } catch (error) {
         setError("An error occurred while fetching user data");
@@ -28,13 +27,16 @@ export default function SinglePost({ post, postId, token }) {
     fetchUserData();
   }, [token]);
 
-  async function handleClick() {
-    setIsOpen(!isOpen);
-  }
+  const handleClose = () => {
+    setIsOpen(false);
+  };
 
-  async function handleSubmit(e) {
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(content);
 
     const postObj = {
       message: {
@@ -51,7 +53,7 @@ export default function SinglePost({ post, postId, token }) {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
     <div id="container" key={post._id}>
@@ -62,24 +64,19 @@ export default function SinglePost({ post, postId, token }) {
         <p>Price: {post.price}</p>
         <p>Deliver? {post?.willDeliver ? "Yes" : "No"}</p>
 
-        {username !== post.author.username && (
-          <div>
-            <button
-              className="single-post-btn"
-              id="open-popup"
-              onClick={handleClick}
-            >
-              Send Message
-              {isOpen && (
-                <div>
-                  <MessagePopup
-                    onSend={handleSubmit}
-                    onClose={() => setIsOpen(false)}
-                  />
-                </div>
-              )}
-            </button>
-          </div>
+        <button className="form-btn" onClick={handleClick}>
+          {isOpen ? "Cancel" : "Send Message"}
+        </button>
+
+        {isOpen && username && username !== post.author.username ? (
+          <MessagePopup
+            onSubmit={handleSubmit}
+            content={content}
+            setContent={setContent}
+            onClose={handleClose}
+          />
+        ) : (
+          <></>
         )}
       </div>
     </div>
