@@ -164,9 +164,13 @@ export default function Profile({ token }) {
                       {message.post.author.username}
                     </p>
                     <p className="message-detail">
-                      Description: {message.post.title}
+                      <span className="message-text">Description: </span>
+                      {message.post.title}
                     </p>
-                    <p className="message-detail">Message: {message.content}</p>
+                    <p className="message-detail">
+                      <span className="message-text">Message: </span>
+                      {message.content}
+                    </p>
                   </div>
                 );
               })}

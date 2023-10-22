@@ -41,14 +41,16 @@ export default function AllPosts({ token }) {
             onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
           />
         </label>
-        <button
-          className="all-post-btn"
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
-          Login to message sellers
-        </button>
+        {!token && (
+          <button
+            className="all-post-btn"
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Login to message sellers
+          </button>
+        )}
       </div>
 
       <div className="all-posts">
