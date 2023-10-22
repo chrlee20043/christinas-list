@@ -171,6 +171,33 @@ body {
 
 }
 
+.all-post-btn {
+  cursor: pointer;
+text-align: center;
+font-size: 15px;
+cursor: pointer;
+color: #5a4970;
+background-color: white;
+border-radius: 5px;
+border: solid 2px peachpuff;
+padding: 10px;
+transition: 0.3s ease-in-out;
+margin: 10px;
+}
+
+.all-post-btn:hover {
+  color: #5a4970;
+  background-color: white;
+  margin: 5px;
+  transition: 0.3s ease-in-out;
+  border: solid 2px #e0c7e2;
+
+}
+
+.all-post-btn:active {
+  border: solid 2px rgb(69, 2, 69);
+}
+
 .single-post-btn {
 cursor: pointer;
 text-align: center;
@@ -440,6 +467,19 @@ margin: 10px;
   /* padding: 10px; */
   transition: 0.3s ease-in-out;
   margin: 10px;
+}
+
+.close:hover {
+  color: #5a4970;
+  background-color: white;
+  margin: 5px;
+  transition: 0.3s ease-in-out;
+  border: solid 2px #e0c7e2;
+
+}
+
+.close:active {
+  border: solid 2px rgb(69, 2, 69);
 }
 
 .new-content {

@@ -160,7 +160,8 @@ export default function Profile({ token }) {
                 return (
                   <div className="message-card" key={message._id}>
                     <p className="message-detail">
-                      Seller: {message.post.author.username}
+                      <span className="message-text">Seller:</span>{" "}
+                      {message.post.author.username}
                     </p>
                     <p className="message-detail">
                       Description: {message.post.title}

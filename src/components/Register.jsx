@@ -47,7 +47,7 @@ export default function Register() {
 
           navigate("/login");
         } else {
-          setError("Please provide a username.");
+          setError("Error. Please try again.");
         }
       }
     } catch (error) {

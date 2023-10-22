@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import SinglePost from "./SinglePost";
 import fetchAllPosts from "../API";
 
@@ -9,6 +10,8 @@ export default function AllPosts({ token }) {
   const [posts, setPosts] = useState([]);
   const [searchParam, setSearchParam] = useState("");
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   async function renderPosts() {
     try {
@@ -38,7 +41,16 @@ export default function AllPosts({ token }) {
             onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
           />
         </label>
+        <button
+          className="all-post-btn"
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          Login to message sellers
+        </button>
       </div>
+
       <div className="all-posts">
         {postsToDisplay.map((post) => (
           <SinglePost

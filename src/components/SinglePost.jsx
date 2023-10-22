@@ -64,7 +64,7 @@ export default function SinglePost({ post, postId, token }) {
         <p>Price: {post.price}</p>
         <p>Deliver? {post?.willDeliver ? "Yes" : "No"}</p>
 
-        {username !== post.author.username && (
+        {token && username !== post.author.username && (
           <div>
             <button
               className="single-post-btn"
