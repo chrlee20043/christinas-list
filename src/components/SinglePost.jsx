@@ -64,19 +64,26 @@ export default function SinglePost({ post, postId, token }) {
         <p>Price: {post.price}</p>
         <p>Deliver? {post?.willDeliver ? "Yes" : "No"}</p>
 
-        <button className="form-btn" onClick={handleClick}>
-          {isOpen ? "Cancel" : "Send Message"}
-        </button>
-
-        {isOpen && username && username !== post.author.username ? (
-          <MessagePopup
-            onSubmit={handleSubmit}
-            content={content}
-            setContent={setContent}
-            onClose={handleClose}
-          />
-        ) : (
-          <></>
+        {username !== post.author.username && (
+          <div>
+            <button
+              className="single-post-btn"
+              id="open-popup"
+              onClick={handleClick}
+            >
+              Send Message
+            </button>
+            {isOpen && (
+              <div>
+                <MessagePopup
+                  onSubmit={handleSubmit}
+                  content={content}
+                  setContent={setContent}
+                  onClose={handleClose}
+                />
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>

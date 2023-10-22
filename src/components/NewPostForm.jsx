@@ -50,9 +50,9 @@ export default function NewPostForm({ token, onNewPost, profileUser }) {
     <form onSubmit={handleSubmit} className="post-form-container">
       <div className="post-form">
         {error && <p>{error}</p>}
-        <h4 className="new-post-title">Create New Post</h4>
-        <label htmlFor="name">My Username</label>
-        <input value={profileUser} type="text" name="name" disabled />
+        <h4 className="new-post-title">Add New Post</h4>
+        {/* <label htmlFor="name">My Username</label>
+        <input value={profileUser} type="text" name="name" disabled /> */}
         <label htmlFor="title">Title</label>
         <input
           value={title}

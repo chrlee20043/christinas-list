@@ -96,7 +96,7 @@ export default function Profile({ token }) {
           )}
 
           <div id="my-post-container">
-            <h2>My Posts:</h2>
+            <h2>My Posts</h2>
 
             {userPosts
               .filter((post) => post.active === true)
@@ -155,7 +155,7 @@ export default function Profile({ token }) {
               })}
 
             <div id="my-messages">
-              <h2>My Sent Messages:</h2>
+              <h2>My Sent Messages</h2>
               {userMessages.map((message) => {
                 return (
                   <div className="message-card" key={message._id}>
@@ -165,9 +165,7 @@ export default function Profile({ token }) {
                     <p className="message-detail">
                       Description: {message.post.title}
                     </p>
-                    <p className="message-detail">
-                      My Message: {message.content}
-                    </p>
+                    <p className="message-detail">Message: {message.content}</p>
                   </div>
                 );
               })}
