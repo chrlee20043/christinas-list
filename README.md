@@ -9,3 +9,8 @@ https://christinas-list.onrender.com/
 2. Edit and delete user created posts
 3. Message sellers to inquire about items for sale 
 4. View user created posts and sent messages on profile page
+
+## Technologies
+
+JavaScript, React, HTML, CSS, BCrypt
+
