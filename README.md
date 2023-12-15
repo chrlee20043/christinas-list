@@ -17,6 +17,9 @@ https://christinas-list.onrender.com/
 3. Start the development server: ```npm start```
 4. Open your browser and navigate to ```http://localhost:3000```
 
+## API Documentation (created by Fullstack Academy)
+https://strangers-things.herokuapp.com/api/
+
 ## Technologies
 
 <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React"/>
