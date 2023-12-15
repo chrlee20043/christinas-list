@@ -12,10 +12,10 @@ https://christinas-list.onrender.com/
 
 ## Getting Started
 
-1. Clone this repository: `git clone [https://github.com/your-username/your-repo.git](https://github.com/chrlee20043/christinas-list.git)`
-2. Install dependencies: `npm install`
-3. Start the development server: `npm start`
-4. Open your browser and navigate to `http://localhost:3000`
+1. Clone this repository: ```git clone [https://github.com/your-username/your-repo.git](https://github.com/chrlee20043/christinas-list.git)```
+2. Install dependencies: ```npm install```
+3. Start the development server: ```npm start```
+4. Open your browser and navigate to ```http://localhost:3000```
 
 ## Technologies
 
