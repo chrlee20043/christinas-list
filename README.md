@@ -15,7 +15,7 @@ https://christinas-list.onrender.com/
 1. Clone this repository: ```git clone https://github.com/chrlee20043/christinas-list.git```
 2. Install dependencies: ```npm install``` and ```npm install create-vite```
 3. Start the development server: ```npm run dev```
-4. Open your browser and navigate to ```http://localhost:3000```
+4. Open your browser and navigate to ```http://localhost:5173```
 
 ## API Documentation (created by Fullstack Academy)
 https://strangers-things.herokuapp.com/api/
