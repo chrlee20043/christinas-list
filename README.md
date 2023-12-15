@@ -12,5 +12,10 @@ https://christinas-list.onrender.com/
 
 ## Technologies
 
-JavaScript, React, HTML, CSS, BCrypt
+React
+JavaScript
+HTML
+CSS
+BCrypt
+
 
